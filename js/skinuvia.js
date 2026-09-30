@@ -16,6 +16,58 @@ var defaultProducts = [
     { id: 8, name: "Retinol Night Serum", price: 42.00, category: "treatments", routine: "Step 3 · 2–3 nights a week", description: "Gentle encapsulated retinol for fine lines.", image: "https://images.unsplash.com/photo-1611930021592-a8cfd5319e18?w=600&h=600&fit=crop" }
 ];
 
+// ============================================
+// MOBILE NAVIGATION
+// ============================================
+
+function toggleMobileNav() {
+    var nav = document.getElementById('mainNav');
+    var overlay = document.getElementById('mobileNavOverlay');
+    if (!nav) return;
+
+    nav.classList.toggle('open');
+    if (overlay) overlay.classList.toggle('show');
+
+    // Prevent body scroll when menu open
+    if (nav.classList.contains('open')) {
+        document.body.style.overflow = 'hidden';
+    } else {
+        document.body.style.overflow = '';
+    }
+}
+
+// Close menu when clicking a nav link
+document.addEventListener('DOMContentLoaded', function() {
+    var navLinks = document.querySelectorAll('.main-nav a');
+    navLinks.forEach(function(link) {
+        link.addEventListener('click', function() {
+            var nav = document.getElementById('mainNav');
+            var overlay = document.getElementById('mobileNavOverlay');
+            if (nav) nav.classList.remove('open');
+            if (overlay) overlay.classList.remove('show');
+            document.body.style.overflow = '';
+        });
+    });
+
+    // Close on click of the ✕ inside the drawer
+    var mainNav = document.getElementById('mainNav');
+    if (mainNav) {
+        mainNav.addEventListener('click', function(e) {
+            // Detect click on the pseudo-element ::before (top right area)
+            var rect = mainNav.getBoundingClientRect();
+            var clickX = e.clientX - rect.left;
+            var clickY = e.clientY - rect.top;
+            // If click is near top-right (where ✕ is)
+            if (clickX > rect.width - 60 && clickY < 60) {
+                toggleMobileNav();
+            }
+        });
+    }
+});
+
+// Expose globally
+window.toggleMobileNav = toggleMobileNav;
+
 // ===== CATEGORIES =====
 var categories = [
     { slug: 'skincare',         name: 'Skincare',          icon: 'fa-wand-magic-sparkles' },

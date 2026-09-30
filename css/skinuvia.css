@@ -941,6 +941,124 @@ button { font-family: inherit; cursor: pointer; }
 
 .product-modal-benefits i { color: var(--sage); width: 16px; font-size: 0.9rem; }
 
+/* ============================================
+   MOBILE MENU
+   ============================================ */
+
+.mobile-menu-btn {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 1.4rem;
+    color: var(--text);
+    cursor: pointer;
+    padding: 8px;
+    transition: color 0.2s;
+}
+
+.mobile-menu-btn:hover { color: var(--sage); }
+
+.mobile-nav-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(31, 36, 33, 0.5);
+    z-index: 998;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.mobile-nav-overlay.show {
+    display: block;
+    opacity: 1;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+    .header-inner {
+        grid-template-columns: auto auto 1fr auto;
+        gap: 12px;
+        padding: 12px 0;
+    }
+
+    /* Show hamburger */
+    .mobile-menu-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        order: 0;
+    }
+
+    /* Logo next to hamburger */
+    .logo { order: 1; }
+    .header-actions { order: 3; }
+
+    /* Turn nav into a slide-in drawer */
+    .main-nav {
+        position: fixed;
+        top: 0;
+        left: -320px;
+        width: 300px;
+        max-width: 85vw;
+        height: 100vh;
+        background: var(--white);
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        padding: 100px 32px 32px;
+        gap: 0;
+        box-shadow: 4px 0 40px rgba(0, 0, 0, 0.1);
+        transition: left 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+        z-index: 999;
+        display: flex;
+    }
+
+    .main-nav.open {
+        left: 0;
+    }
+
+    .main-nav a {
+        font-size: 1.15rem;
+        font-weight: 400;
+        padding: 18px 0;
+        width: 100%;
+        border-bottom: 1px solid var(--border);
+        text-align: left;
+    }
+
+    .main-nav a.active::after { display: none; }
+    .main-nav a.active {
+        color: var(--sage);
+        font-weight: 500;
+    }
+
+    /* Close button inside the drawer */
+    .main-nav::before {
+        content: '✕';
+        position: absolute;
+        top: 24px;
+        right: 24px;
+        font-size: 1.4rem;
+        color: var(--text-muted);
+        cursor: pointer;
+        font-family: 'Inter', sans-serif;
+        line-height: 1;
+    }
+}
+
+/* Very small phones */
+@media (max-width: 480px) {
+    .header-inner {
+        grid-template-columns: auto auto 1fr auto;
+        gap: 8px;
+        padding: 10px 0;
+    }
+
+    .logo img, .logo-img { height: 44px; max-width: 130px; }
+    .mobile-menu-btn { font-size: 1.25rem; padding: 6px; }
+    .icon-btn { padding: 6px; font-size: 0.95rem; }
+}
+
 /* ===== CART SIDEBAR ===== */
 .cart-sidebar {
     position: fixed;

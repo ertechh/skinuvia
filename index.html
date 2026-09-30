@@ -21,10 +21,16 @@
 <!-- HEADER -->
 <header class="site-header">
     <div class="container header-inner">
+
+        <!-- Mobile hamburger menu button -->
+        <button class="mobile-menu-btn" onclick="toggleMobileNav()" aria-label="Open menu">
+            <i class="fas fa-bars"></i>
+        </button>
+
         <a href="index.html" class="logo">
-           <img src="images/logo.jpeg" alt="SKINUVIA" />
+            <img src="images/logo.jpeg" alt="SKINUVIA" class="logo-img" />
         </a>
-        <nav class="main-nav">
+        <nav class="main-nav" id="mainNav">
             <a href="index.html" class="active">Home</a>
             <a href="shop.html">Shop all</a>
             <a href="routine.html">Routines</a>
@@ -41,6 +47,9 @@
         </div>
     </div>
 </header>
+
+<!-- Mobile nav overlay -->
+<div class="mobile-nav-overlay" id="mobileNavOverlay" onclick="toggleMobileNav()"></div>
 
 <!-- HOME CONTENT -->
 <main>
