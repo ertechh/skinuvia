@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Login — SKINUVIA</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link rel="stylesheet" href="css/skinuvia.css" />
+    <link rel="stylesheet" href="css/admin.css" />
+
+    <style>
+        /* ============================================
+           PREMIUM LOGIN PAGE
+           ============================================ */
+
+        html, body {
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .login-page {
+            display: grid;
+            grid-template-columns: 1.1fr 1fr;
+            min-height: 100vh;
+            background: var(--bg);
+        }
+
+        /* ===== LEFT: VISUAL SIDE ===== */
+        .login-visual {
+            position: relative;
+            background: linear-gradient(135deg, #7A8F7B 0%, #5C6D5D 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 60px;
+            overflow: hidden;
+            color: var(--white);
+        }
+
+        .login-visual::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: url('https://images.unsplash.com/photo-1556228720-195a672e8a03?w=1200&h=1600&fit=crop');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.25;
+            mix-blend-mode: overlay;
+        }
+
+        .login-visual::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(92, 109, 93, 0.4) 0%, rgba(31, 36, 33, 0.7) 100%);
+            z-index: 1;
+        }
+
+        .login-visual > * {
+            position: relative;
+            z-index: 2;
+        }
+
+        .login-visual-logo {
+            font-family: 'Fraunces', serif;
+            font-size: 1.5rem;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+
+        .login-visual-logo .logo-dot {
+            background: var(--white);
+        }
+
+        .login-visual-content {
+            max-width: 420px;
+        }
+
+        .login-visual-quote {
+            font-family: 'Fraunces', serif;
+            font-style: italic;
+            font-size: 2.75rem;
+            font-weight: 400;
+            line-height: 1.15;
+            letter-spacing: -0.02em;
+            margin-bottom: 28px;
+            color: var(--white);
+        }
+
+        .login-visual-quote em {
+            font-style: italic;
+            opacity: 0.85;
+        }
+
+        .login-visual-sub {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            opacity: 0.75;
+            max-width: 340px;
+        }
+
+        .login-visual-stats {
+            display: flex;
+            gap: 40px;
+            padding-top: 40px;
+            border-top: 1px solid rgba(255,255,255,0.15);
+        }
+
+        .login-visual-stat {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .login-visual-stat strong {
+            font-family: 'Fraunces', serif;
+            font-size: 1.75rem;
+            font-weight: 500;
+            line-height: 1;
+            margin-bottom: 6px;
+        }
+
+        .login-visual-stat span {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            opacity: 0.7;
+        }
+
+        /* Floating decorative shapes */
+        .login-visual .float-shape {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.06);
+            animation: floatShape 20s ease-in-out infinite;
+            z-index: 1;
+        }
+
+        .login-visual .float-shape:nth-child(1) {
+            width: 300px;
+            height: 300px;
+            top: -80px;
+            right: -80px;
+            animation-duration: 22s;
+        }
+
+        .login-visual .float-shape:nth-child(2) {
+            width: 180px;
+            height: 180px;
+            bottom: 15%;
+            left: -60px;
+            animation-duration: 18s;
+            animation-delay: 3s;
+        }
+
+        .login-visual .float-shape:nth-child(3) {
+            width: 120px;
+            height: 120px;
+            bottom: -40px;
+            right: 20%;
+            animation-duration: 25s;
+            animation-delay: 6s;
+        }
+
+        @keyframes floatShape {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(20px, -30px) scale(1.05); }
+            50% { transform: translate(-20px, 20px) scale(0.95); }
+            75% { transform: translate(15px, 15px) scale(1.02); }
+        }
+
+        /* ===== RIGHT: FORM SIDE ===== */
+        .login-form-side {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 40px;
+            background: var(--bg);
+            position: relative;
+            overflow-y: auto;
+        }
+
+        .login-form-wrapper {
+            width: 100%;
+            max-width: 400px;
+            animation: formIn 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        @keyframes formIn {
+            from { opacity: 0; transform: translateY(24px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .login-back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            margin-bottom: 40px;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .login-back-link:hover {
+            color: var(--sage);
+        }
+
+        .login-header {
+            margin-bottom: 36px;
+        }
+
+        .login-header .eyebrow {
+            margin-bottom: 16px;
+        }
+
+        .login-header h1 {
+            font-family: 'Fraunces', serif;
+            font-size: 2.25rem;
+            font-weight: 400;
+            line-height: 1.1;
+            letter-spacing: -0.025em;
+            margin-bottom: 10px;
+            color: var(--text);
+        }
+
+        .login-header h1 em {
+            font-style: italic;
+            color: var(--sage);
+        }
+
+        .login-header p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .login-error {
+            background: #FEF2F2;
+            border: 1px solid #FECACA;
+            color: #991B1B;
+            padding: 12px 16px;
+            border-radius: var(--radius);
+            font-size: 0.85rem;
+            margin-bottom: 20px;
+            display: none;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .login-error.show {
+            display: flex;
+            animation: shake 0.4s ease;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-6px); }
+            75% { transform: translateX(6px); }
+        }
+
+        /* ===== PREMIUM FORM FIELDS ===== */
+        .login-field {
+            margin-bottom: 20px;
+        }
+
+        .login-field label {
+            display: block;
+            font-size: 0.72rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+        }
+
+        .login-input-wrap {
+            position: relative;
+        }
+
+        .login-input-wrap i.field-icon {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            pointer-events: none;
+            transition: color 0.2s;
+        }
+
+        .login-input-wrap input {
+            width: 100%;
+            padding: 16px 18px 16px 46px;
+            border: 1.5px solid var(--border);
+            border-radius: 12px;
+            background: var(--white);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            color: var(--text);
+            outline: none;
+            transition: all 0.25s ease;
+        }
+
+        .login-input-wrap input::placeholder {
+            color: #B8B2A8;
+        }
+
+        .login-input-wrap input:focus {
+            border-color: var(--sage);
+            box-shadow: 0 0 0 4px rgba(122, 143, 123, 0.1);
+        }
+
+        .login-input-wrap input:focus + i.field-icon,
+        .login-input-wrap input:focus ~ i.field-icon {
+            color: var(--sage);
+        }
+
+        .login-input-wrap i.field-icon {
+            z-index: 2;
+        }
+
+        .login-input-wrap input {
+            position: relative;
+            z-index: 1;
+        }
+
+        .login-input-wrap i.field-icon {
+            z-index: 2;
+        }
+
+        /* ===== PREMIUM SIGN-IN BUTTON ===== */
+        .login-btn {
+            width: 100%;
+            padding: 18px 24px;
+            background: var(--text);
+            color: var(--white);
+            border: none;
+            border-radius: 12px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 28px;
+            transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-btn::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, var(--sage) 0%, var(--sage-dark) 100%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: 0;
+        }
+
+        .login-btn:hover::before {
+            opacity: 1;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(92, 109, 93, 0.25);
+        }
+
+        .login-btn > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .login-btn i {
+            transition: transform 0.3s;
+        }
+
+        .login-btn:hover i {
+            transform: translateX(4px);
+        }
+
+        /* ===== DEMO NOTE ===== */
+        .login-demo {
+            margin-top: 28px;
+            padding: 16px 20px;
+            background: var(--bg-alt);
+            border-radius: 12px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .login-demo i {
+            color: var(--sage);
+            font-size: 0.9rem;
+        }
+
+        .login-demo strong {
+            color: var(--text);
+            font-weight: 500;
+        }
+
+        /* ===== SECURITY BADGE ===== */
+        .login-security {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 32px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border);
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .login-security i {
+            color: var(--sage);
+            font-size: 0.8rem;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .login-page {
+                grid-template-columns: 1fr;
+            }
+
+            .login-visual {
+                display: none;
+            }
+
+            .login-form-side {
+                padding: 40px 24px;
+                min-height: 100vh;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .login-form-side {
+                padding: 32px 20px;
+            }
+
+            .login-header h1 {
+                font-size: 1.75rem;
+            }
+
+            .login-form-wrapper {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="login-page">
+
+    <!-- ===== LEFT: VISUAL SIDE ===== -->
+    <aside class="login-visual">
+        <div class="float-shape"></div>
+        <div class="float-shape"></div>
+        <div class="float-shape"></div>
+
+        <a href="index.html" class="login-visual-logo">
+            <span class="logo-dot"></span> SKINUVIA
+        </a>
+
+        <div class="login-visual-content">
+            <p class="login-visual-quote">
+                "Manage your <em>collection</em> with care."
+            </p>
+            <p class="login-visual-sub">
+                Everything you need to add, edit, and manage your skincare products — all in one calm, simple place.
+            </p>
+        </div>
+
+        <div class="login-visual-stats">
+            <div class="login-visual-stat">
+                <strong>12K+</strong>
+                <span>Customers</span>
+            </div>
+            <div class="login-visual-stat">
+                <strong>4.9★</strong>
+                <span>Rating</span>
+            </div>
+            <div class="login-visual-stat">
+                <strong>48</strong>
+                <span>Countries</span>
+            </div>
+        </div>
+    </aside>
+
+    <!-- ===== RIGHT: FORM SIDE ===== -->
+    <main class="login-form-side">
+        <div class="login-form-wrapper">
+
+            <a href="index.html" class="login-back-link">
+                <i class="fas fa-arrow-left"></i> Back to store
+            </a>
+
+            <div class="login-header">
+                <p class="eyebrow">Admin Access</p>
+                <h1>Welcome <em>back</em>.</h1>
+                <p>Sign in to manage your products.</p>
+            </div>
+
+            <div class="login-error" id="loginError">
+                <i class="fas fa-exclamation-circle"></i>
+                <span>Invalid email or password. Please try again.</span>
+            </div>
+
+            <form id="adminLoginForm">
+                <div class="login-field">
+                    <label for="adminEmail">Email Address</label>
+                    <div class="login-input-wrap">
+                        <i class="fas fa-envelope field-icon"></i>
+                        <input type="email" id="adminEmail" value="admin@skinuvia.com" placeholder="you@skinuvia.com" required />
+                    </div>
+                </div>
+
+                <div class="login-field">
+                    <label for="adminPassword">Password</label>
+                    <div class="login-input-wrap">
+                        <i class="fas fa-lock field-icon"></i>
+                        <input type="password" id="adminPassword" value="admin123" placeholder="••••••••" required />
+                    </div>
+                </div>
+
+                <button type="submit" class="login-btn">
+                    <span>Sign in</span>
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+            </form>
+
+            <div class="login-demo">
+                <i class="fas fa-key"></i>
+                <span>
+                    Demo: <strong>admin@skinuvia.com</strong> · <strong>admin123</strong>
+                </span>
+            </div>
+
+            <div class="login-security">
+                <i class="fas fa-shield-halved"></i>
+                <span>Secure admin access · SKINUVIA</span>
+            </div>
+
+        </div>
+    </main>
+
+</div>
+
+<script>
+// ============================================
+// PREMIUM LOGIN — no redirect loop
+// ============================================
+
+document.getElementById('adminLoginForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    var email = document.getElementById('adminEmail').value.trim();
+    var pass = document.getElementById('adminPassword').value.trim();
+    var errorEl = document.getElementById('loginError');
+
+    if (email === 'admin@skinuvia.com' && pass === 'admin123') {
+        try {
+            localStorage.setItem('skinuvia_admin_logged_in', 'true');
+            localStorage.setItem('skinuvia_admin_email', email);
+        } catch (err) {
+            alert('Browser blocked storage. Please enable cookies/localStorage.');
+            return;
+        }
+
+        errorEl.classList.remove('show');
+        window.location.replace('admin-dashboard.html#loggedin');
+    } else {
+        errorEl.classList.add('show');
+        // Shake animation reset
+        var form = document.getElementById('adminLoginForm');
+        form.style.animation = 'none';
+        setTimeout(function() { form.style.animation = ''; }, 10);
+    }
+});
+
+// Only auto-redirect if we're SURE we're logged in AND haven't just been redirected here
+(function checkAlreadyLoggedIn() {
+    try {
+        var isLoggedIn = localStorage.getItem('skinuvia_admin_logged_in') === 'true';
+        if (isLoggedIn && !sessionStorage.getItem('skinuvia_checked_login')) {
+            sessionStorage.setItem('skinuvia_checked_login', 'true');
+            window.location.replace('admin-dashboard.html#loggedin');
+        }
+    } catch (err) {
+        console.warn('Storage access failed:', err);
+    }
+})();
+</script>
+</body>
+</html>

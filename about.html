@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About — SKINUVIA</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link rel="stylesheet" href="css/skinuvia.css" />
+</head>
+<body>
+
+<!-- ANNOUNCEMENT -->
+<div class="announcement-bar">
+    <i class="fas fa-leaf"></i> Free UK delivery over £40 · 14-day returns
+</div>
+
+<!-- HEADER -->
+<header class="site-header">
+    <div class="container header-inner">
+        <a href="index.html" class="logo">
+            <span class="logo-dot"></span> SKINUVIA
+        </a>
+        <nav class="main-nav">
+            <a href="index.html">Home</a>
+            <a href="shop.html">Shop all</a>
+            <a href="routine.html">Routines</a>
+            <a href="about.html" class="active">About</a>
+        </nav>
+        <div class="header-actions">
+            <button class="icon-btn" onclick="showToast('Search coming soon')" title="Search">
+                <i class="fas fa-search"></i>
+            </button>
+            <button class="icon-btn" onclick="openCart()" title="Cart">
+                <i class="fas fa-shopping-bag"></i>
+                <span class="cart-count" id="cartCount">0</span>
+            </button>
+        </div>
+    </div>
+</header>
+
+<main>
+
+    <!-- ABOUT HERO -->
+    <section class="about-hero">
+        <div class="container about-hero-content">
+            <p class="eyebrow">Our story</p>
+            <h1>Skincare built on <em>honesty</em>, not hype.</h1>
+            <p class="about-hero-sub">SKINUVIA started with a simple frustration: skincare was too complicated, too expensive, and too full of empty promises. So we made it simpler.</p>
+        </div>
+    </section>
+
+    <!-- IMAGE BANNER -->
+    <section class="about-image-banner">
+        <div class="container">
+            <div class="about-banner-img" style="background-image: url('images/home2.webp');"></div>
+        </div>
+    </section>
+
+    <!-- STORY -->
+    <section class="section">
+        <div class="container about-story-grid">
+            <div class="about-story-left">
+                <p class="eyebrow">Why we exist</p>
+                <h2>Stop starting over</h2>
+            </div>
+            <div class="about-story-right">
+                <p>Most of us buy a product, use it a few times, and then wonder what to do with it. We've all been there — a bathroom shelf full of half-used bottles that didn't work, or worse, made things worse.</p>
+                <p>SKINUVIA was founded on a simple idea: skincare should be <strong>clear</strong>. Every product tells you what it's for, when to use it, and what to put on before and after. No 10-step routines. No confusing jargon. Just four steps that actually work — morning and night.</p>
+                <p>We formulate with clinically-backed actives at effective concentrations. We list every ingredient. We don't use fillers. We don't use fragrance if it doesn't serve a purpose. And we never test on animals.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- VALUES -->
+    <section class="section section-alt">
+        <div class="container">
+            <div class="section-header-row">
+                <div>
+                    <p class="eyebrow">What we stand for</p>
+                    <h2>Our values</h2>
+                </div>
+            </div>
+            <div class="values-grid">
+                <div class="value-card">
+                    <div class="value-icon"><i class="fas fa-leaf"></i></div>
+                    <h3>Clean formulas</h3>
+                    <p>Every ingredient has a purpose. No fillers, no fluff, no hidden nasties.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon"><i class="fas fa-flask"></i></div>
+                    <h3>Clinically proven</h3>
+                    <p>We only use actives that have real evidence behind them — at concentrations that work.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon"><i class="fas fa-heart"></i></div>
+                    <h3>Cruelty-free</h3>
+                    <p>Always vegan, never tested on animals. Kind to your skin and to the planet.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon"><i class="fas fa-comments"></i></div>
+                    <h3>Honest advice</h3>
+                    <p>No exaggerated claims. Just clear guidance on what to use and when.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOUNDER -->
+    <section class="section founder-section">
+        <div class="container founder-grid">
+            <div class="founder-image">
+                <div class="founder-img-inner" style="background-image: url('images/fnd.jpeg');"></div>
+            </div>
+            <div class="founder-content">
+                <p class="eyebrow">A note from our founder</p>
+                <h2>"I spent years getting skincare wrong, so you don't have to."</h2>
+                <p>I tried everything — the 10-step routines, the trending TikTok products, the £100 serums. My skin got worse before it got better.</p>
+                <p>What finally worked? Stripping it back. Four steps. Products I understood. Ingredients I could pronounce. That's what SKINUVIA is.</p>
+                <p class="founder-signature">— Founder, Farida</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- STATS -->
+    <section class="section section-alt">
+        <div class="container">
+            <div class="about-stats-grid">
+                <div class="about-stat">
+                    <div class="about-stat-number">12,000+</div>
+                    <div class="about-stat-label">Happy customers</div>
+                </div>
+                <div class="about-stat">
+                    <div class="about-stat-number">4.9★</div>
+                    <div class="about-stat-label">Average rating</div>
+                </div>
+                <div class="about-stat">
+                    <div class="about-stat-number">48</div>
+                    <div class="about-stat-label">Countries shipped to</div>
+                </div>
+                <div class="about-stat">
+                    <div class="about-stat-number">100%</div>
+                    <div class="about-stat-label">Cruelty-free</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="about-cta">
+        <div class="container section-centered">
+            <p class="eyebrow" style="justify-content: center;">Ready to start?</p>
+            <h2>Find your routine</h2>
+            <p>Four steps. No guesswork. Everything you need to get started.</p>
+            <a href="shop.html" class="btn-primary" style="margin-top: 32px;">Shop the range</a>
+        </div>
+    </section>
+
+</main>
+
+<!-- CART SIDEBAR -->
+<div class="cart-sidebar" id="cartSidebar">
+    <div class="cart-header">
+        <h3>Your Bag</h3>
+        <button onclick="closeCart()"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="cart-items" id="cartItems">
+        <p class="cart-empty">Your bag is empty.</p>
+    </div>
+    <div class="cart-footer">
+        <div class="cart-total-row">
+            <span>Subtotal</span>
+            <span>£<span id="cartTotal">0.00</span></span>
+        </div>
+        <p class="cart-note">Shipping calculated at checkout</p>
+        <button class="btn-primary btn-full" onclick="checkout()">
+            Proceed to checkout
+        </button>
+        <button class="btn-whatsapp-checkout" onclick="checkoutWhatsApp()">
+            <i class="fab fa-whatsapp"></i>
+            Complete order on WhatsApp
+        </button>
+    </div>
+</div>
+<div class="overlay" id="overlay" onclick="closeCart()"></div>
+
+<!-- TOAST -->
+<div class="toast" id="toast">
+    <i class="fas fa-check-circle"></i>
+    <span id="toastMsg">Done</span>
+</div>
+
+<!-- WHATSAPP FLOATING BUTTON -->
+<a href="https://wa.me/447000000000?text=Hi%20SKINUVIA%2C%20I%27d%20like%20to%20ask%20about%20your%20products"
+   class="whatsapp-btn"
+   target="_blank"
+   rel="noopener"
+   aria-label="Chat on WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+    <span class="whatsapp-tooltip">Chat with us</span>
+</a>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+    <div class="container footer-inner">
+        <div class="footer-brand">
+            <a href="index.html" class="logo"><span class="logo-dot"></span> SKINUVIA</a>
+            <p>Skincare that actually fits your skin. Honest formulas, clear instructions, real results.</p>
+            <div class="footer-social">
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-tiktok"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+            </div>
+        </div>
+        <div class="footer-col">
+            <h4>Shop</h4>
+            <a href="shop.html">All products</a>
+            <a href="shop.html?cat=cleansers">Cleansers</a>
+            <a href="shop.html?cat=serums">Serums</a>
+            <a href="shop.html?cat=moisturisers">Moisturisers</a>
+        </div>
+        <div class="footer-col">
+            <h4>Help</h4>
+            <a href="#">Delivery & returns</a>
+            <a href="#">Contact us</a>
+            <a href="#">FAQs</a>
+        </div>
+        <div class="footer-col">
+            <h4>Company</h4>
+            <a href="about.html">About us</a>
+            <a href="#">Ingredients</a>
+            <a href="admin-login.html" class="footer-admin-link">Staff login</a>
+        </div>
+    </div>
+    <div class="container footer-bottom">
+        <p>© 2026 SKINUVIA. All rights reserved.</p>
+        <div class="footer-legal">
+            <a href="#">Privacy</a>
+            <a href="#">Terms</a>
+        </div>
+    </div>
+</footer>
+
+<script src="js/skinuvia.js"></script>
+</body>
+</html>

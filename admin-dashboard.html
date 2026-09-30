@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard — SKINUVIA</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link rel="stylesheet" href="css/skinuvia.css" />
+    <link rel="stylesheet" href="css/admin.css" />
+</head>
+<body>
+
+<!-- ===== ADMIN HEADER ===== -->
+<header class="site-header">
+    <div class="container header-inner">
+        <a href="index.html" class="logo">
+            <span class="logo-dot"></span> SKINUVIA
+        </a>
+        <div class="admin-header-right" style="display:flex; align-items:center; gap:20px;">
+            <span class="admin-user" id="adminEmail" style="font-size:0.85rem; color:var(--text-muted);">admin@skinuvia.com</span>
+            <button class="admin-btn" onclick="adminLogout()">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+        </div>
+    </div>
+</header>
+
+<!-- ===== ADMIN CONTENT ===== -->
+<main class="admin-page">
+    <div class="container">
+
+        <!-- Page title -->
+        <div class="admin-page-head">
+            <div>
+                <p class="eyebrow">Admin Panel</p>
+                <h1>Product Management</h1>
+                <p class="admin-page-sub" id="productCountBadge">0 products</p>
+            </div>
+            <button class="btn-sage" onclick="openProductForm()">
+                <i class="fas fa-plus"></i> Add product
+            </button>
+        </div>
+
+        <!-- Stats -->
+        <div class="admin-stats">
+            <div class="admin-stat">
+                <div class="admin-stat-icon">📦</div>
+                <div class="admin-stat-number" id="statProducts">0</div>
+                <div class="admin-stat-label">Products</div>
+            </div>
+            <div class="admin-stat">
+                <div class="admin-stat-icon">🏷️</div>
+                <div class="admin-stat-number" id="statCategories">0</div>
+                <div class="admin-stat-label">Categories</div>
+            </div>
+            <div class="admin-stat">
+                <div class="admin-stat-icon">⭐</div>
+                <div class="admin-stat-number" id="statRating">—</div>
+                <div class="admin-stat-label">Avg Rating</div>
+            </div>
+            <div class="admin-stat">
+                <div class="admin-stat-icon">💰</div>
+                <div class="admin-stat-number" id="statValue">£0</div>
+                <div class="admin-stat-label">Total Value</div>
+            </div>
+        </div>
+
+        <!-- Product table -->
+        <div class="admin-table-wrapper">
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>Image</th>
+                        <th>Product</th>
+                        <th>Category</th>
+                        <th>Price</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="adminTableBody"></tbody>
+            </table>
+        </div>
+
+    </div>
+</main>
+
+<!-- ===== PRODUCT FORM MODAL ===== -->
+<div class="admin-form-overlay" id="adminFormOverlay">
+    <div class="admin-form">
+        <div class="admin-form-header">
+            <div>
+                <h2 id="formTitle">Add product</h2>
+                <p id="formSub">Fill in the details below</p>
+            </div>
+            <button onclick="closeProductForm()"><i class="fas fa-times"></i></button>
+        </div>
+
+        <form id="productForm">
+            <input type="hidden" id="editId" value="" />
+
+            <div class="form-group">
+                <label>Product name <span class="required">*</span></label>
+                <input type="text" id="fName" placeholder="e.g. Hydrating Serum" required />
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Price (£) <span class="required">*</span></label>
+                    <input type="number" id="fPrice" placeholder="32.00" step="0.01" min="0" required />
+                </div>
+                <div class="form-group">
+                    <label>Category <span class="required">*</span></label>
+                    <select id="fCategory" required>
+                        <option value="">Select</option>
+                        <option value="skincare">Skincare</option>
+                        <option value="cleansers">Cleansers</option>
+                        <option value="serums">Serums</option>
+                        <option value="moisturisers">Moisturisers</option>
+                        <option value="treatments">Treatments</option>
+                        <option value="spf">SPF</option>
+                        <option value="toners">Toners</option>
+                        <option value="body">Body</option>
+                        <option value="bath-body">Bath &amp; Body</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Routine step <span class="required">*</span></label>
+                <input type="text" id="fRoutine" placeholder="e.g. Step 2 · Morning & Night" required />
+            </div>
+
+            <div class="form-group">
+                <label>Short description <span class="required">*</span></label>
+                <input type="text" id="fDescription" placeholder="One sentence — what it does" required />
+            </div>
+
+            <div class="form-group">
+                <label>Product image <span class="required">*</span></label>
+                <div class="upload-zone" id="uploadZone" onclick="document.getElementById('fileInput').click()">
+                    <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                    <p class="upload-text">Click or drag to upload</p>
+                    <p class="upload-sub">PNG, JPG up to 5MB</p>
+                    <img id="uploadPreview" class="upload-preview" alt="Preview" />
+                    <button type="button" class="upload-remove" id="uploadRemove" onclick="removeUpload(event)">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <input type="file" id="fileInput" accept="image/*" hidden />
+                <input type="hidden" id="fImage" value="" />
+            </div>
+
+            <button type="submit" class="btn-sage btn-block" id="formSubmit">
+                <i class="fas fa-check"></i> Add product
+            </button>
+        </form>
+    </div>
+</div>
+
+<!-- ===== TOAST ===== -->
+<div class="toast" id="toast">
+    <i class="fas fa-check-circle"></i>
+    <span id="toastMsg">Done</span>
+</div>
+
+<script>
+/* ============================================
+   ADMIN DASHBOARD — reads/writes skinuvia_products
+   ============================================ */
+
+console.log('🌿 Admin dashboard loading...');
+
+// ===== AUTH =====
+// ===== AUTH CHECK (no loop) =====
+(function checkAuth() {
+    try {
+        var isLoggedIn = localStorage.getItem('skinuvia_admin_logged_in') === 'true';
+        var cameFromLogin = window.location.hash === '#loggedin';
+
+        // If logged in, clear the hash so refresh doesn't re-trigger
+        if (isLoggedIn && cameFromLogin) {
+            history.replaceState(null, '', 'admin-dashboard.html');
+        }
+
+        // Only redirect if NOT logged in
+        if (!isLoggedIn) {
+            window.location.replace('admin-login.html');
+        }
+    } catch (err) {
+        console.error('Auth check failed:', err);
+    }
+})();
+
+var adminEmailEl = document.getElementById('adminEmail');
+if (adminEmailEl) {
+    adminEmailEl.textContent = localStorage.getItem('skinuvia_admin_email') || 'admin@skinuvia.com';
+}
+
+// ===== STORAGE =====
+var STORAGE_KEY = 'skinuvia_products';
+
+// Migrate old keys if needed
+(function migrateOldData() {
+    var oldKeys = ['adminProducts', 'shopProducts', 'products'];
+    var current = localStorage.getItem(STORAGE_KEY);
+    if (current) return;
+
+    for (var i = 0; i < oldKeys.length; i++) {
+        var val = localStorage.getItem(oldKeys[i]);
+        if (val) {
+            try {
+                var parsed = JSON.parse(val);
+                if (Array.isArray(parsed) && parsed.length > 0) {
+                    localStorage.setItem(STORAGE_KEY, val);
+                    console.log('✅ Migrated ' + parsed.length + ' products from "' + oldKeys[i] + '"');
+                    return;
+                }
+            } catch (e) {}
+        }
+    }
+})();
+
+function getProducts() {
+    try {
+        var stored = localStorage.getItem(STORAGE_KEY);
+        if (stored) {
+            var parsed = JSON.parse(stored);
+            if (Array.isArray(parsed)) return parsed;
+        }
+    } catch (e) {
+        console.error('Load error:', e);
+    }
+    return [];
+}
+
+function saveProducts(list) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
+    console.log('💾 Saved ' + list.length + ' products to "' + STORAGE_KEY + '"');
+}
+
+var products = getProducts();
+
+// ===== TOAST =====
+var toastTimer;
+function showToast(msg) {
+    var t = document.getElementById('toast');
+    var m = document.getElementById('toastMsg');
+    if (!t || !m) { alert(msg); return; }
+    m.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function() { t.classList.remove('show'); }, 2400);
+}
+
+// ===== RENDER =====
+function renderAdminTable() {
+    var tbody = document.getElementById('adminTableBody');
+    if (!tbody) return;
+
+    // Refresh products from storage in case another tab changed them
+    products = getProducts();
+
+    // Stats
+    document.getElementById('statProducts').textContent = products.length;
+    document.getElementById('productCountBadge').textContent = products.length + ' product' + (products.length !== 1 ? 's' : '');
+
+    var cats = [];
+    products.forEach(function(p) { if (p.category && cats.indexOf(p.category) === -1) cats.push(p.category); });
+    document.getElementById('statCategories').textContent = cats.length;
+
+    if (products.length > 0) {
+        var avg = products.reduce(function(s, p) { return s + (p.rating || 4.7); }, 0) / products.length;
+        document.getElementById('statRating').textContent = avg.toFixed(1) + '★';
+    } else {
+        document.getElementById('statRating').textContent = '—';
+    }
+    var total = products.reduce(function(s, p) { return s + (parseFloat(p.price) || 0); }, 0);
+    document.getElementById('statValue').textContent = '£' + total.toFixed(2);
+
+    // Table
+    if (products.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="5"><div class="admin-empty"><i class="fas fa-box-open"></i><p>No products yet. Click "Add product" to get started.</p></div></td></tr>';
+        return;
+    }
+
+    tbody.innerHTML = products.map(function(p) {
+        var imgHtml = (p.image && p.image.indexOf('data:image') === 0)
+            ? '<img src="' + p.image + '" class="admin-table-img" alt="' + p.name + '" />'
+            : (p.image
+                ? '<img src="' + p.image + '" class="admin-table-img" alt="' + p.name + '" onerror="this.outerHTML=\'<div class=&quot;admin-table-img&quot;><i class=&quot;fas fa-image&quot;></i></div>\'" />'
+                : '<div class="admin-table-img"><i class="fas fa-image"></i></div>');
+
+        return '<tr>' +
+            '<td>' + imgHtml + '</td>' +
+            '<td>' + p.name + '</td>' +
+            '<td><span class="admin-cat">' + (p.category || '—') + '</span></td>' +
+            '<td>£' + parseFloat(p.price).toFixed(2) + '</td>' +
+            '<td><div class="admin-row-actions">' +
+                '<button class="admin-btn-sm" onclick="editProduct(' + p.id + ')">Edit</button>' +
+                '<button class="admin-btn-sm danger" onclick="deleteProduct(' + p.id + ')">Delete</button>' +
+            '</div></td>' +
+        '</tr>';
+    }).join('');
+}
+
+// ===== FORM OPEN =====
+function openProductForm() {
+    document.getElementById('productForm').reset();
+    document.getElementById('editId').value = '';
+    document.getElementById('fImage').value = '';
+    document.getElementById('formTitle').textContent = 'Add product';
+    document.getElementById('formSub').textContent = 'Fill in the details below';
+    document.getElementById('formSubmit').innerHTML = '<i class="fas fa-check"></i> Add product';
+    resetUploadUI();
+    document.getElementById('adminFormOverlay').classList.add('show');
+}
+
+function closeProductForm() {
+    document.getElementById('adminFormOverlay').classList.remove('show');
+}
+
+// ===== EDIT =====
+function editProduct(id) {
+    products = getProducts();
+    var p = products.find(function(x) { return x.id === id; });
+    if (!p) return;
+
+    document.getElementById('editId').value = p.id;
+    document.getElementById('fName').value = p.name;
+    document.getElementById('fPrice').value = p.price;
+    document.getElementById('fCategory').value = p.category || '';
+    document.getElementById('fRoutine').value = p.routine || '';
+    document.getElementById('fDescription').value = p.description || '';
+
+    resetUploadUI();
+
+    if (p.image) {
+        document.getElementById('fImage').value = p.image;
+        var preview = document.getElementById('uploadPreview');
+        preview.src = p.image;
+        preview.classList.add('show');
+        document.querySelector('.upload-icon').style.display = 'none';
+        document.querySelector('.upload-text').style.display = 'none';
+        document.querySelector('.upload-sub').style.display = 'none';
+        document.getElementById('uploadRemove').classList.add('show');
+    }
+
+    document.getElementById('formTitle').textContent = 'Edit product';
+    document.getElementById('formSub').textContent = 'Update the details';
+    document.getElementById('formSubmit').innerHTML = '<i class="fas fa-check"></i> Save changes';
+    document.getElementById('adminFormOverlay').classList.add('show');
+}
+
+// ===== DELETE =====
+function deleteProduct(id) {
+    products = getProducts();
+    var p = products.find(function(x) { return x.id === id; });
+    if (!p) return;
+    if (!confirm('Delete "' + p.name + '"?')) return;
+
+    products = products.filter(function(x) { return x.id !== id; });
+    saveProducts(products);
+    renderAdminTable();
+    showToast('Product deleted');
+}
+
+// ===== SUBMIT =====
+function handleProductSubmit(e) {
+    e.preventDefault();
+
+    var id = document.getElementById('editId').value;
+    var name = document.getElementById('fName').value.trim();
+    var price = document.getElementById('fPrice').value;
+    var category = document.getElementById('fCategory').value;
+    var routine = document.getElementById('fRoutine').value.trim();
+    var description = document.getElementById('fDescription').value.trim();
+    var image = document.getElementById('fImage').value;
+
+    if (!name || !price || !category || !routine || !description) {
+        showToast('Please fill in all fields');
+        return;
+    }
+    if (!image) {
+        showToast('Please upload an image');
+        return;
+    }
+
+    products = getProducts();
+
+    if (id) {
+        var i = products.findIndex(function(x) { return x.id === parseInt(id); });
+        if (i !== -1) {
+            products[i].name = name;
+            products[i].price = parseFloat(price);
+            products[i].category = category;
+            products[i].routine = routine;
+            products[i].description = description;
+            products[i].image = image;
+        }
+        showToast('Product updated');
+    } else {
+        var newId = products.length > 0 ? Math.max.apply(null, products.map(function(p) { return p.id; })) + 1 : 1;
+        products.push({
+            id: newId,
+            name: name,
+            price: parseFloat(price),
+            category: category,
+            routine: routine,
+            description: description,
+            image: image,
+            rating: 4.7 + Math.random() * 0.3
+        });
+        showToast('Product added ✨');
+    }
+
+    saveProducts(products);
+    renderAdminTable();
+    closeProductForm();
+}
+
+// ===== UPLOAD =====
+function resetUploadUI() {
+    var preview = document.getElementById('uploadPreview');
+    if (!preview) return;
+    preview.classList.remove('show');
+    preview.src = '';
+    document.querySelector('.upload-icon').style.display = 'block';
+    document.querySelector('.upload-text').style.display = 'block';
+    document.querySelector('.upload-sub').style.display = 'block';
+    document.getElementById('uploadRemove').classList.remove('show');
+    var fi = document.getElementById('fileInput');
+    if (fi) fi.value = '';
+}
+
+function handleFile(file) {
+    if (!file) return;
+    if (file.type.indexOf('image/') !== 0) { showToast('Please upload an image'); return; }
+    if (file.size > 5 * 1024 * 1024) { showToast('Image too large (max 5MB)'); return; }
+
+    var reader = new FileReader();
+    reader.onload = function(e) {
+        var data = e.target.result;
+        document.getElementById('fImage').value = data;
+        var preview = document.getElementById('uploadPreview');
+        preview.src = data;
+        preview.classList.add('show');
+        document.querySelector('.upload-icon').style.display = 'none';
+        document.querySelector('.upload-text').style.display = 'none';
+        document.querySelector('.upload-sub').style.display = 'none';
+        document.getElementById('uploadRemove').classList.add('show');
+    };
+    reader.readAsDataURL(file);
+}
+
+function removeUpload(e) {
+    if (e) e.stopPropagation();
+    document.getElementById('fImage').value = '';
+    resetUploadUI();
+}
+
+// ===== LOGOUT =====
+function adminLogout() {
+    if (!confirm('Log out?')) return;
+    try {
+        localStorage.removeItem('skinuvia_admin_logged_in');
+        localStorage.removeItem('skinuvia_admin_email');
+        sessionStorage.removeItem('skinuvia_checked_login');
+    } catch (err) {}
+    window.location.replace('admin-login.html');
+}
+
+// ===== EVENTS =====
+document.addEventListener('DOMContentLoaded', function() {
+    var fileInput = document.getElementById('fileInput');
+    if (fileInput) fileInput.addEventListener('change', function(e) { handleFile(e.target.files[0]); });
+
+    var uz = document.getElementById('uploadZone');
+    if (uz) {
+        uz.addEventListener('dragover', function(e) { e.preventDefault(); this.classList.add('dragover'); });
+        uz.addEventListener('dragleave', function(e) { e.preventDefault(); this.classList.remove('dragover'); });
+        uz.addEventListener('drop', function(e) {
+            e.preventDefault();
+            this.classList.remove('dragover');
+            if (e.dataTransfer.files.length > 0) handleFile(e.dataTransfer.files[0]);
+        });
+    }
+
+    var form = document.getElementById('productForm');
+    if (form) form.addEventListener('submit', handleProductSubmit);
+
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') closeProductForm();
+    });
+
+    // Re-render when another tab changes storage
+    window.addEventListener('storage', function(e) {
+        if (e.key === STORAGE_KEY) renderAdminTable();
+    });
+
+    // Initial render
+    renderAdminTable();
+    console.log('✅ Admin ready — ' + products.length + ' products loaded from "' + STORAGE_KEY + '"');
+});
+</script>
+
+<script>
+// EMERGENCY TEST — kill everything that could shake
+document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(function() {
+        // Disable all animations and transitions
+        var style = document.createElement('style');
+        style.textContent = `
+            *, *::before, *::after {
+                animation: none !important;
+                transition: none !important;
+            }
+        `;
+        document.head.appendChild(style);
+        console.log('🔧 All animations killed');
+    }, 500);
+});
+</script>
+</body>
+</html>

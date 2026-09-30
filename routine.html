@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Routines — SKINUVIA</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link rel="stylesheet" href="css/skinuvia.css" />
+</head>
+<body>
+
+<!-- ANNOUNCEMENT -->
+<div class="announcement-bar">
+    <i class="fas fa-leaf"></i> Free UK delivery over £40 · 14-day returns
+</div>
+
+<!-- HEADER -->
+<header class="site-header">
+    <div class="container header-inner">
+        <a href="index.html" class="logo">
+            <span class="logo-dot"></span> SKINUVIA
+        </a>
+        <nav class="main-nav">
+            <a href="index.html">Home</a>
+            <a href="shop.html">Shop all</a>
+            <a href="routine.html" class="active">Routines</a>
+            <a href="about.html">About</a>
+        </nav>
+        <div class="header-actions">
+            <button class="icon-btn" onclick="showToast('Search coming soon')" title="Search">
+                <i class="fas fa-search"></i>
+            </button>
+            <button class="icon-btn" onclick="openCart()" title="Cart">
+                <i class="fas fa-shopping-bag"></i>
+                <span class="cart-count" id="cartCount">0</span>
+            </button>
+        </div>
+    </div>
+</header>
+
+<main>
+
+    <!-- HERO -->
+    <section class="routine-hero">
+        <div class="container routine-hero-content">
+            <p class="eyebrow">Your routine, simplified</p>
+            <h1>Four steps. <em>No</em> guesswork.</h1>
+            <p class="routine-hero-sub">Skincare doesn't need to be complicated. Follow four simple steps, morning and night. That's it.</p>
+        </div>
+    </section>
+
+    <!-- THE FOUR STEPS -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header-row">
+                <div>
+                    <p class="eyebrow">The framework</p>
+                    <h2>The four steps</h2>
+                </div>
+            </div>
+
+            <div class="steps-grid">
+                <div class="step-card">
+                    <div class="step-number">01</div>
+                    <div class="step-icon"><i class="fas fa-droplet"></i></div>
+                    <h3>Cleanse</h3>
+                    <p class="step-time">Morning & night</p>
+                    <p>Remove makeup, sweat, and grime without stripping your skin barrier. 30 seconds, gentle circles, lukewarm water.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">02</div>
+                    <div class="step-icon"><i class="fas fa-prescription-bottle"></i></div>
+                    <h3>Treat</h3>
+                    <p class="step-time">Morning & night</p>
+                    <p>Serums target specific concerns — hydration, brightness, or fine lines. 3–4 drops, press gently into skin.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">03</div>
+                    <div class="step-icon"><i class="fas fa-hand-holding-droplet"></i></div>
+                    <h3>Moisturise</h3>
+                    <p class="step-time">Morning & night</p>
+                    <p>Lock in hydration and support a healthy barrier. A pea-sized amount is enough for the whole face.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">04</div>
+                    <div class="step-icon"><i class="fas fa-sun"></i></div>
+                    <h3>Protect</h3>
+                    <p class="step-time">Morning only</p>
+                    <p>SPF every single morning — even cloudy days. The single best thing you can do for your skin.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MORNING VS EVENING -->
+    <section class="section section-alt">
+        <div class="container">
+            <div class="section-header-row">
+                <div>
+                    <p class="eyebrow">Two routines</p>
+                    <h2>Morning vs evening</h2>
+                </div>
+            </div>
+
+            <div class="routines-grid">
+
+                <!-- Morning -->
+                <div class="routine-column">
+                    <div class="routine-column-header">
+                        <div class="routine-column-icon morning">
+                            <i class="fas fa-sun"></i>
+                        </div>
+                        <div>
+                            <h3>Morning routine</h3>
+                            <p>3 steps · 2 minutes</p>
+                        </div>
+                    </div>
+                    <ol class="routine-steps-list">
+                        <li>
+                            <span class="routine-step-num">1</span>
+                            <div>
+                                <strong>Cleanse</strong>
+                                <p>Gentle rinse — no need for a full cleanse if you cleansed last night.</p>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="routine-step-num">2</span>
+                            <div>
+                                <strong>Treat</strong>
+                                <p>Vitamin C serum for brightness and antioxidant protection.</p>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="routine-step-num">3</span>
+                            <div>
+                                <strong>Moisturise + SPF</strong>
+                                <p>Moisturiser, then SPF 50. Don't skip this.</p>
+                            </div>
+                        </li>
+                    </ol>
+                </div>
+
+                <!-- Evening -->
+                <div class="routine-column">
+                    <div class="routine-column-header">
+                        <div class="routine-column-icon evening">
+                            <i class="fas fa-moon"></i>
+                        </div>
+                        <div>
+                            <h3>Evening routine</h3>
+                            <p>4 steps · 3 minutes</p>
+                        </div>
+                    </div>
+                    <ol class="routine-steps-list">
+                        <li>
+                            <span class="routine-step-num">1</span>
+                            <div>
+                                <strong>Double cleanse</strong>
+                                <p>Remove makeup and SPF thoroughly. Lukewarm water.</p>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="routine-step-num">2</span>
+                            <div>
+                                <strong>Tone (optional)</strong>
+                                <p>Calming toner to rebalance skin after cleansing.</p>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="routine-step-num">3</span>
+                            <div>
+                                <strong>Treat</strong>
+                                <p>Retinol 2–3 nights a week, hydrating serum on off-nights.</p>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="routine-step-num">4</span>
+                            <div>
+                                <strong>Moisturise</strong>
+                                <p>Richer moisturiser or overnight mask for repair.</p>
+                            </div>
+                        </li>
+                    </ol>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- PRODUCT PICKS -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header-row">
+                <div>
+                    <p class="eyebrow">Shop the routine</p>
+                    <h2>Everything you need</h2>
+                </div>
+                <a href="shop.html" class="btn-text">Shop all →</a>
+            </div>
+            <div class="product-grid" id="routineProducts"></div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section section-alt">
+        <div class="container">
+            <div class="section-header-row">
+                <div>
+                    <p class="eyebrow">Questions</p>
+                    <h2>Common questions</h2>
+                </div>
+            </div>
+
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <h3>How long until I see results?</h3>
+                    <p>Hydration improves within days. Texture and tone take 4–6 weeks of consistent use. Fine lines and dark spots can take 8–12 weeks.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Can I use retinol and vitamin C together?</h3>
+                    <p>Yes — but not at the same time. Vitamin C in the morning, retinol at night. Never layer them.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Do I really need SPF every day?</h3>
+                    <p>Yes. UV damage is the number one cause of premature ageing. Even on cloudy days, up to 80% of UV rays pass through.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>What if my skin reacts?</h3>
+                    <p>Stop the new product and return to your basics for a week. If irritation continues, contact us on WhatsApp — we'll help.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Can I start with just 2 products?</h3>
+                    <p>Absolutely. Start with a cleanser and moisturiser. Add SPF next, then serums. Build the routine as your skin adjusts.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Which moisturiser is right for me?</h3>
+                    <p>Oily skin: lightweight gel. Dry skin: richer cream. Combination: our Barrier Repair Moisturiser works for almost everyone.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="about-cta">
+        <div class="container section-centered">
+            <p class="eyebrow" style="justify-content: center;">Ready to start?</p>
+            <h2>Build your routine</h2>
+            <p>Four steps. No guesswork. Everything you need to get started — in one box.</p>
+            <a href="shop.html" class="btn-primary" style="margin-top: 32px;">Shop the range</a>
+        </div>
+    </section>
+
+</main>
+
+<!-- CART SIDEBAR -->
+<div class="cart-sidebar" id="cartSidebar">
+    <div class="cart-header">
+        <h3>Your Bag</h3>
+        <button onclick="closeCart()"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="cart-items" id="cartItems">
+        <p class="cart-empty">Your bag is empty.</p>
+    </div>
+    <div class="cart-footer">
+        <div class="cart-total-row">
+            <span>Subtotal</span>
+            <span>£<span id="cartTotal">0.00</span></span>
+        </div>
+        <p class="cart-note">Shipping calculated at checkout</p>
+        <button class="btn-primary btn-full" onclick="checkout()">
+            Proceed to checkout
+        </button>
+        <button class="btn-whatsapp-checkout" onclick="checkoutWhatsApp()">
+            <i class="fab fa-whatsapp"></i>
+            Complete order on WhatsApp
+        </button>
+    </div>
+</div>
+<div class="overlay" id="overlay" onclick="closeCart()"></div>
+
+<!-- TOAST -->
+<div class="toast" id="toast">
+    <i class="fas fa-check-circle"></i>
+    <span id="toastMsg">Done</span>
+</div>
+
+<!-- WHATSAPP FLOATING BUTTON -->
+<a href="https://wa.me/447000000000?text=Hi%20SKINUVIA%2C%20I%27d%20like%20to%20ask%20about%20your%20routines"
+   class="whatsapp-btn"
+   target="_blank"
+   rel="noopener"
+   aria-label="Chat on WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+    <span class="whatsapp-tooltip">Chat with us</span>
+</a>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+    <div class="container footer-inner">
+        <div class="footer-brand">
+            <a href="index.html" class="logo"><span class="logo-dot"></span> SKINUVIA</a>
+            <p>Skincare that actually fits your skin. Honest formulas, clear instructions, real results.</p>
+            <div class="footer-social">
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-tiktok"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+            </div>
+        </div>
+        <div class="footer-col">
+            <h4>Shop</h4>
+            <a href="shop.html">All products</a>
+            <a href="shop.html?cat=cleansers">Cleansers</a>
+            <a href="shop.html?cat=serums">Serums</a>
+            <a href="shop.html?cat=moisturisers">Moisturisers</a>
+        </div>
+        <div class="footer-col">
+            <h4>Help</h4>
+            <a href="routine.html">Skincare routines</a>
+            <a href="#">Delivery & returns</a>
+            <a href="#">Contact us</a>
+            <a href="#">FAQs</a>
+        </div>
+        <div class="footer-col">
+            <h4>Company</h4>
+            <a href="about.html">About us</a>
+            <a href="#">Ingredients</a>
+            <a href="admin-login.html" class="footer-admin-link">Staff login</a>
+        </div>
+    </div>
+    <div class="container footer-bottom">
+        <p>© 2026 SKINUVIA. All rights reserved.</p>
+        <div class="footer-legal">
+            <a href="#">Privacy</a>
+            <a href="#">Terms</a>
+        </div>
+    </div>
+</footer>
+
+<script src="js/skinuvia.js"></script>
+<script>
+    // Render 4 routine products on the page
+    document.addEventListener('DOMContentLoaded', function() {
+        var grid = document.getElementById('routineProducts');
+        if (!grid) return;
+
+        var picks = (typeof products !== 'undefined' && products.length > 0)
+            ? products.slice(0, 4)
+            : [];
+
+        if (picks.length > 0 && typeof cardHTML === 'function') {
+            grid.innerHTML = picks.map(cardHTML).join('');
+        } else {
+            grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:var(--text-muted);">Loading products…</p>';
+        }
+    });
+</script>
+</body>
+</html>

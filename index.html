@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SKINUVIA — Skincare that actually fits your skin</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link rel="stylesheet" href="css/skinuvia.css" />
+</head>
+<body>
+
+<!-- ANNOUNCEMENT -->
+<div class="announcement-bar">
+    <i class="fas fa-leaf"></i> Free UK delivery over £40 · 14-day returns
+</div>
+
+<!-- HEADER -->
+<header class="site-header">
+    <div class="container header-inner">
+        <a href="index.html" class="logo">
+           <img src="images/logo.jpeg" alt="SKINUVIA" />
+        </a>
+        <nav class="main-nav">
+            <a href="index.html" class="active">Home</a>
+            <a href="shop.html">Shop all</a>
+            <a href="routine.html">Routines</a>
+            <a href="about.html">About</a>
+        </nav>
+        <div class="header-actions">
+            <button class="icon-btn" onclick="showToast('Search coming soon')" title="Search">
+                <i class="fas fa-search"></i>
+            </button>
+            <button class="icon-btn" onclick="openCart()" title="Cart">
+                <i class="fas fa-shopping-bag"></i>
+                <span class="cart-count" id="cartCount">0</span>
+            </button>
+        </div>
+    </div>
+</header>
+
+<!-- HOME CONTENT -->
+<main>
+
+    <!-- HERO WITH BACKGROUND SLIDER -->
+    <section class="hero hero-slider">
+        <div class="hero-slide active" style="background-image: url('images/olay.webp');"></div>
+        <div class="hero-slide" style="background-image: url('images/home2.webp');"></div>
+        <div class="hero-slide" style="background-image: url('images/home3.avif');"></div>
+        <div class="hero-slide" style="background-image: url('images/home4.avif');"></div>
+
+        <!-- Text content — one block per slide -->
+        <div class="container hero-content">
+
+            <!-- Slide 1 -->
+            <div class="hero-text-slide active" data-slide="0">
+                <p class="hero-eyebrow">Let your skin do the talking</p>
+                <h1>Skincare that <em>actually</em> fits your skin</h1>
+                <p class="hero-sub">Built by someone who spent years on trial and error, so you don't have to. Honest formulas, clear instructions, and a routine that makes sense.</p>
+                <div class="hero-buttons">
+                    <a href="shop.html" class="btn-primary">Shop the range</a>
+                    <a href="#story" class="btn-outline">Find your routine</a>
+                </div>
+            </div>
+
+            <!-- Slide 2 -->
+            <div class="hero-text-slide" data-slide="1">
+                <p class="hero-eyebrow">Clean formulas, real results</p>
+                <h1>Made with <em>ingredients</em> you can trust</h1>
+                <p class="hero-sub">No fillers, no fluff. Every product is formulated with clinically-backed actives that actually do what they say.</p>
+                <div class="hero-buttons">
+                    <a href="shop.html" class="btn-primary">Explore products</a>
+                    <a href="#story" class="btn-outline">Our ingredients</a>
+                </div>
+            </div>
+
+            <!-- Slide 3 -->
+            <div class="hero-text-slide" data-slide="2">
+                <p class="hero-eyebrow">Your routine, simplified</p>
+                <h1>Four steps. <em>No</em> guesswork.</h1>
+                <p class="hero-sub">Cleanse, treat, moisturise, protect. That's it. Everything else is optional — and we'll tell you exactly what to use and when.</p>
+                <div class="hero-buttons">
+                    <a href="shop.html" class="btn-primary">Build my routine</a>
+                    <a href="#story" class="btn-outline">How it works</a>
+                </div>
+            </div>
+
+            <!-- Slide 4 -->
+            <div class="hero-text-slide" data-slide="3">
+                <p class="hero-eyebrow">Real skin, real people</p>
+                <h1>Loved by <em>12,000+</em> customers</h1>
+                <p class="hero-sub">Join thousands who've finally found a routine that works. Rated 4.9 stars from over 2,400 verified reviews.</p>
+                <div class="hero-buttons">
+                    <a href="shop.html" class="btn-primary">Shop bestsellers</a>
+                    <a href="#story" class="btn-outline">Read reviews</a>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Slide indicators -->
+        <div class="hero-dots">
+            <span class="hero-dot active" data-slide="0"></span>
+            <span class="hero-dot" data-slide="1"></span>
+            <span class="hero-dot" data-slide="2"></span>
+            <span class="hero-dot" data-slide="3"></span>
+        </div>
+    </section>
+
+    <!-- TRUST BAR -->
+    <section class="trust-bar">
+        <div class="container trust-inner">
+            <div class="trust-item">
+                <i class="fas fa-truck"></i>
+                <div><strong>Next-day delivery</strong><span>UK Mon–Fri</span></div>
+            </div>
+            <div class="trust-item">
+                <i class="fas fa-undo"></i>
+                <div><strong>14-day returns</strong><span>On unopened items</span></div>
+            </div>
+            <div class="trust-item">
+                <i class="fas fa-flask"></i>
+                <div><strong>Full ingredients</strong><span>Nothing hidden</span></div>
+            </div>
+            <div class="trust-item">
+                <i class="fas fa-leaf"></i>
+                <div><strong>Cruelty-free</strong><span>Always vegan</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CATEGORIES -->
+    <section class="section categories-section">
+        <div class="container">
+            <div class="categories-header">
+                <p class="eyebrow">Category</p>
+                <h2>Find your starting point</h2>
+            </div>
+            <div class="categories-grid" id="categoriesGrid"></div>
+        </div>
+    </section>
+
+    <!-- STORY -->
+    <section class="section section-alt section-centered" id="story">
+        <div class="container">
+            <p class="eyebrow">Why SKINUVIA</p>
+            <h2>Stop starting over</h2>
+            <p>Most of us buy the product and then wonder what to do with it. Every SKINUVIA order tells you what it's for, when to use it, and what to put on before and after.</p>
+        </div>
+    </section>
+
+    <!-- BEST SELLERS -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header-row">
+                <div>
+                    <p class="eyebrow">Loved most</p>
+                    <h2>What everyone is repurchasing</h2>
+                </div>
+                <a href="shop.html" class="btn-text">Shop all →</a>
+            </div>
+            <div class="product-grid" id="bestSellers"></div>
+        </div>
+    </section>
+
+    <!-- NEW ARRIVALS -->
+    <section class="section section-alt">
+        <div class="container">
+            <div class="section-header-row">
+                <div>
+                    <p class="eyebrow">Just landed</p>
+                    <h2>New this month</h2>
+                </div>
+                <a href="shop.html" class="btn-text">Shop all →</a>
+            </div>
+            <div class="product-grid" id="newArrivals"></div>
+        </div>
+    </section>
+
+</main>
+
+<!-- ===== CART SIDEBAR (only ONE) ===== -->
+<div class="cart-sidebar" id="cartSidebar">
+    <div class="cart-header">
+        <h3>Your Bag</h3>
+        <button onclick="closeCart()"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="cart-items" id="cartItems">
+        <p class="cart-empty">Your bag is empty.</p>
+    </div>
+    <div class="cart-footer">
+        <div class="cart-total-row">
+            <span>Subtotal</span>
+            <span>£<span id="cartTotal">0.00</span></span>
+        </div>
+        <p class="cart-note">Shipping calculated at checkout</p>
+        <button class="btn-primary btn-full" onclick="checkout()">
+            Proceed to checkout
+        </button>
+        <button class="btn-whatsapp-checkout" onclick="checkoutWhatsApp()">
+            <i class="fab fa-whatsapp"></i>
+            Complete order on WhatsApp
+        </button>
+    </div>
+</div>
+<div class="overlay" id="overlay" onclick="closeCart()"></div>
+
+<!-- TOAST -->
+<div class="toast" id="toast">
+    <i class="fas fa-check-circle"></i>
+    <span id="toastMsg">Done</span>
+</div>
+
+<!-- ===== WHATSAPP FLOATING BUTTON ===== -->
+<a href="https://wa.me/447000000000?text=Hi%20SKINUVIA%2C%20I%27d%20like%20to%20ask%20about%20your%20products"
+   class="whatsapp-btn"
+   target="_blank"
+   rel="noopener"
+   aria-label="Chat on WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+    <span class="whatsapp-tooltip">Chat with us</span>
+</a>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+    <div class="container footer-inner">
+        <div class="footer-brand">
+            <a href="index.html" class="logo"><img src="images/logo.jpeg" alt="SKINUVIA" /></a>
+            <p>Skincare that actually fits your skin. Honest formulas, clear instructions, real results.</p>
+            <div class="footer-social">
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-tiktok"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+            </div>
+        </div>
+        <div class="footer-col">
+            <h4>Shop</h4>
+            <a href="shop.html">All products</a>
+            <a href="shop.html?cat=cleansers">Cleansers</a>
+            <a href="shop.html?cat=serums">Serums</a>
+            <a href="shop.html?cat=moisturisers">Moisturisers</a>
+        </div>
+        <div class="footer-col">
+            <h4>Help</h4>
+            <a href="#">Delivery & returns</a>
+            <a href="#">Contact us</a>
+            <a href="#">FAQs</a>
+        </div>
+        <div class="footer-col">
+            <h4>Company</h4>
+            <a href="about.html">About us</a>
+            <a href="#">Ingredients</a>
+            <a href="admin-login.html" class="footer-admin-link">Staff login</a>
+        </div>
+    </div>
+    <div class="container footer-bottom">
+        <p>© 2026 SKINUVIA. All rights reserved.</p>
+        <div class="footer-legal">
+            <a href="#">Privacy</a>
+            <a href="#">Terms</a>
+        </div>
+    </div>
+</footer>
+
+<script src="js/skinuvia.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        initHeroSlider();
+        renderHome();
+        renderCategories();
+    });
+</script>
+
+</body>
+</html>
