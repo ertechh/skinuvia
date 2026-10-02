@@ -68,22 +68,6 @@ function showToast(msg) {
     toastTimer = setTimeout(function() { t.classList.remove('show'); }, 2400);
 }
 
-// ===== PAGE ROUTING =====
-function showPage(page) {
-    document.querySelectorAll('.page').forEach(function(p) { p.classList.remove('active'); });
-    var target = document.getElementById('page-' + page);
-    if (target) target.classList.add('active');
-    document.querySelectorAll('.main-nav a').forEach(function(a) {
-        a.classList.toggle('active', a.dataset.page === page);
-    });
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-function scrollToSection(id) {
-    var el = document.getElementById(id);
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
-}
-
 // ===== HERO BACKGROUND SLIDER =====
 function initHeroSlider() {
     var slides = document.querySelectorAll('.hero-slide');
@@ -91,7 +75,7 @@ function initHeroSlider() {
     var dots = document.querySelectorAll('.hero-dot');
     if (slides.length === 0) return;
 
-    console.log('🌿 Hero slider: ' + slides.length + ' slides, ' + texts.length + ' text blocks');
+    console.log('🌿 Hero slider: ' + slides.length + ' slides');
 
     var currentSlide = 0;
     var slideInterval = 5000;
@@ -306,8 +290,6 @@ function initProductDetail() {
     var nameEl = document.getElementById('productName');
     if (!nameEl) return;
 
-    console.log('🌿 initProductDetail running');
-
     var params = new URLSearchParams(window.location.search);
     var id = parseInt(params.get('id'));
     var product = products.find(function(p) { return p.id === id; }) || products[0];
@@ -374,249 +356,59 @@ function initProductDetail() {
     });
 }
 
-// ===== ADMIN =====
-var isAdminLoggedIn = false;
+// ===== MOBILE NAVIGATION =====
+function initMobileNav() {
+    var menuBtn = document.getElementById('mobileMenuBtn');
+    var closeBtn = document.getElementById('closeNavBtn');
+    var nav = document.getElementById('mainNav');
+    var overlay = document.getElementById('mobileNavOverlay');
 
-function openAdmin() {
-    if (isAdminLoggedIn) openAdminPanel();
-    else {
-        var el = document.getElementById('adminLoginOverlay');
-        if (el) el.classList.add('show');
-    }
-}
+    if (!menuBtn || !nav) return;
 
-function closeAdminLogin() {
-    var el = document.getElementById('adminLoginOverlay');
-    if (el) el.classList.remove('show');
-}
+    // Prevent double-binding
+    if (menuBtn.dataset.navBound === 'true') return;
+    menuBtn.dataset.navBound = 'true';
 
-function handleAdminLogin() {
-    var email = document.getElementById('adminEmail');
-    var pass = document.getElementById('adminPassword');
-    if (email && pass && email.value.trim() === 'admin@skinuvia.com' && pass.value.trim() === 'admin123') {
-        isAdminLoggedIn = true;
-        closeAdminLogin();
-        openAdminPanel();
-    } else {
-        showToast('Invalid credentials');
-    }
-}
+    console.log('✅ Mobile nav ready');
 
-function openAdminPanel() {
-    var el = document.getElementById('adminPanelOverlay');
-    if (el) el.classList.add('show');
-    document.body.style.overflow = 'hidden';
-    renderAdminTable();
-}
-
-function closeAdminPanel() {
-    var el = document.getElementById('adminPanelOverlay');
-    if (el) el.classList.remove('show');
-    document.body.style.overflow = '';
-}
-
-function renderAdminTable() {
-    var tbody = document.getElementById('adminTableBody');
-    if (!tbody) return;
-
-    var statProducts = document.getElementById('statProducts');
-    if (statProducts) statProducts.textContent = products.length;
-
-    var cats = [];
-    products.forEach(function(p) { if (cats.indexOf(p.category) === -1) cats.push(p.category); });
-    var statCategories = document.getElementById('statCategories');
-    if (statCategories) statCategories.textContent = cats.length;
-
-    var avg = products.length ? products.reduce(function(s, p) { return s + (p.rating || 4.7); }, 0) / products.length : 0;
-    var statRating = document.getElementById('statRating');
-    if (statRating) statRating.textContent = products.length ? avg.toFixed(1) + '★' : '—';
-
-    var total = products.reduce(function(s, p) { return s + p.price; }, 0);
-    var statValue = document.getElementById('statValue');
-    if (statValue) statValue.textContent = '£' + total.toFixed(2);
-
-    if (products.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="5"><div class="admin-empty"><i class="fas fa-box-open"></i><p>No products yet</p></div></td></tr>';
-        return;
+    function openMenu() {
+        nav.classList.add('open');
+        if (overlay) overlay.classList.add('show');
+        document.body.style.overflow = 'hidden';
     }
 
-    tbody.innerHTML = products.map(function(p) {
-        var imgHtml = (p.image && p.image.indexOf('data:image') === 0)
-            ? '<img src="' + p.image + '" class="admin-table-img" />'
-            : '<div class="admin-table-img"><i class="fas fa-image"></i></div>';
-        return '<tr>' +
-            '<td>' + imgHtml + '</td>' +
-            '<td>' + p.name + '</td>' +
-            '<td><span class="admin-cat">' + p.category + '</span></td>' +
-            '<td>£' + p.price.toFixed(2) + '</td>' +
-            '<td><div class="admin-row-actions">' +
-                '<button class="admin-btn-sm" onclick="editProduct(' + p.id + ')">Edit</button>' +
-                '<button class="admin-btn-sm danger" onclick="deleteProduct(' + p.id + ')">Delete</button>' +
-            '</div></td>' +
-        '</tr>';
-    }).join('');
-}
-
-function openProductForm() {
-    var form = document.getElementById('productForm');
-    if (form) form.reset();
-    var id = document.getElementById('editId');
-    if (id) id.value = '';
-    var img = document.getElementById('fImage');
-    if (img) img.value = '';
-    var title = document.getElementById('formTitle');
-    if (title) title.textContent = 'Add product';
-    var sub = document.getElementById('formSub');
-    if (sub) sub.textContent = 'Fill in the details below';
-    var sb = document.getElementById('formSubmit');
-    if (sb) sb.innerHTML = '<i class="fas fa-check"></i> Add product';
-    resetUploadUI();
-    var overlay = document.getElementById('adminFormOverlay');
-    if (overlay) overlay.classList.add('show');
-}
-
-function closeProductForm() {
-    var el = document.getElementById('adminFormOverlay');
-    if (el) el.classList.remove('show');
-}
-
-function editProduct(id) {
-    var p = products.find(function(x) { return x.id === id; });
-    if (!p) return;
-
-    document.getElementById('editId').value = p.id;
-    document.getElementById('fName').value = p.name;
-    document.getElementById('fPrice').value = p.price;
-    document.getElementById('fCategory').value = p.category;
-    document.getElementById('fRoutine').value = p.routine || '';
-    document.getElementById('fDescription').value = p.description || '';
-
-    if (p.image && p.image.indexOf('data:image') === 0) {
-        document.getElementById('fImage').value = p.image;
-        var preview = document.getElementById('uploadPreview');
-        preview.src = p.image;
-        preview.classList.add('show');
-        document.querySelector('.upload-icon').style.display = 'none';
-        document.querySelector('.upload-text').style.display = 'none';
-        document.querySelector('.upload-sub').style.display = 'none';
-        document.getElementById('uploadRemove').classList.add('show');
+    function closeMenu() {
+        nav.classList.remove('open');
+        if (overlay) overlay.classList.remove('show');
+        document.body.style.overflow = '';
     }
 
-    document.getElementById('formTitle').textContent = 'Edit product';
-    document.getElementById('formSub').textContent = 'Update the details';
-    document.getElementById('formSubmit').innerHTML = '<i class="fas fa-check"></i> Save changes';
-    document.getElementById('adminFormOverlay').classList.add('show');
-}
+    // Hamburger toggle
+    menuBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        if (nav.classList.contains('open')) closeMenu();
+        else openMenu();
+    });
 
-function deleteProduct(id) {
-    var p = products.find(function(x) { return x.id === id; });
-    if (!p) return;
-    if (!confirm('Delete "' + p.name + '"?')) return;
-    products = products.filter(function(x) { return x.id !== id; });
-    saveProducts();
-    renderAdminTable();
-    renderHome();
-    renderShop();
-    showToast('Product deleted');
-}
-
-function handleProductSubmit(e) {
-    e.preventDefault();
-    var id = document.getElementById('editId').value;
-    var name = document.getElementById('fName').value.trim();
-    var price = document.getElementById('fPrice').value;
-    var category = document.getElementById('fCategory').value;
-    var routine = document.getElementById('fRoutine').value.trim();
-    var description = document.getElementById('fDescription').value.trim();
-    var image = document.getElementById('fImage').value;
-
-    if (!name || !price || !category || !routine || !description) {
-        showToast('Please fill in all fields');
-        return;
-    }
-    if (!image) {
-        showToast('Please upload an image');
-        return;
-    }
-
-    if (id) {
-        var i = products.findIndex(function(x) { return x.id === parseInt(id); });
-        if (i !== -1) {
-            products[i].name = name;
-            products[i].price = parseFloat(price);
-            products[i].category = category;
-            products[i].routine = routine;
-            products[i].description = description;
-            products[i].image = image;
-        }
-        showToast('Product updated');
-    } else {
-        var newId = products.length > 0 ? Math.max.apply(null, products.map(function(p) { return p.id; })) + 1 : 1;
-        products.push({
-            id: newId,
-            name: name,
-            price: parseFloat(price),
-            category: category,
-            routine: routine,
-            description: description,
-            image: image,
-            rating: 4.7 + Math.random() * 0.3
+    // ✕ close button
+    if (closeBtn) {
+        closeBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            closeMenu();
         });
-        showToast('Product added ✨');
     }
 
-    saveProducts();
-    renderAdminTable();
-    renderHome();
-    renderShop();
-    closeProductForm();
-}
+    // Overlay click closes
+    if (overlay) {
+        overlay.addEventListener('click', closeMenu);
+    }
 
-// ===== UPLOAD =====
-function resetUploadUI() {
-    var preview = document.getElementById('uploadPreview');
-    if (preview) { preview.classList.remove('show'); preview.src = ''; }
-    var icon = document.querySelector('.upload-icon');
-    var txt = document.querySelector('.upload-text');
-    var sub = document.querySelector('.upload-sub');
-    if (icon) icon.style.display = 'block';
-    if (txt) txt.style.display = 'block';
-    if (sub) sub.style.display = 'block';
-    var rm = document.getElementById('uploadRemove');
-    if (rm) rm.classList.remove('show');
-    var fi = document.getElementById('fileInput');
-    if (fi) fi.value = '';
-}
-
-function handleFile(file) {
-    if (!file) return;
-    if (file.type.indexOf('image/') !== 0) { showToast('Please upload an image'); return; }
-    if (file.size > 5 * 1024 * 1024) { showToast('Image too large (max 5MB)'); return; }
-
-    var reader = new FileReader();
-    reader.onload = function(e) {
-        var data = e.target.result;
-        var fImg = document.getElementById('fImage');
-        if (fImg) fImg.value = data;
-        var preview = document.getElementById('uploadPreview');
-        if (preview) { preview.src = data; preview.classList.add('show'); }
-        var icon = document.querySelector('.upload-icon');
-        var txt = document.querySelector('.upload-text');
-        var sub = document.querySelector('.upload-sub');
-        if (icon) icon.style.display = 'none';
-        if (txt) txt.style.display = 'none';
-        if (sub) sub.style.display = 'none';
-        var rm = document.getElementById('uploadRemove');
-        if (rm) rm.classList.add('show');
-    };
-    reader.readAsDataURL(file);
-}
-
-function removeUpload(e) {
-    if (e) e.stopPropagation();
-    var fImg = document.getElementById('fImage');
-    if (fImg) fImg.value = '';
-    resetUploadUI();
+    // Escape key closes
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && nav.classList.contains('open')) closeMenu();
+    });
 }
 
 // ===== EVENT BINDING =====
@@ -654,18 +446,8 @@ function bindEvents() {
         r.addEventListener('change', renderShop);
     });
 
-    var modalAddBtn = document.getElementById('modalAddBtn');
-    if (modalAddBtn) {
-        modalAddBtn.addEventListener('click', function() {
-            if (!currentProduct) return;
-            quickAdd(currentProduct.id, currentQty);
-            closeProductModal();
-        });
-    }
-
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') {
-            closeProductModal();
             closeCart();
             closeProductForm();
             closeAdminLogin();
@@ -679,6 +461,7 @@ document.addEventListener('DOMContentLoaded', function() {
     bindEvents();
     initHeroSlider();
     initProductDetail();
+    initMobileNav();
     renderHome();
     renderShop();
     renderCategories();
@@ -691,6 +474,7 @@ if (document.readyState === 'complete' || document.readyState === 'interactive')
         bindEvents();
         initHeroSlider();
         initProductDetail();
+        initMobileNav();
         renderHome();
         renderShop();
         renderCategories();
@@ -698,7 +482,13 @@ if (document.readyState === 'complete' || document.readyState === 'interactive')
     }, 100);
 }
 
-// ===== EXPOSE =====
+// Safety nets for bfcache (browser back/forward)
+window.addEventListener('load', initMobileNav);
+window.addEventListener('pageshow', function(e) {
+    if (e.persisted) initMobileNav();
+});
+
+// ===== EXPOSE GLOBALLY =====
 window.showToast = showToast;
 window.openCart = openCart;
 window.closeCart = closeCart;
@@ -708,75 +498,3 @@ window.checkout = checkout;
 window.checkoutWhatsApp = checkoutWhatsApp;
 window.resetFilters = resetFilters;
 window.removeFromCart = removeFromCart;
-window.openAdmin = openAdmin;
-window.closeAdminLogin = closeAdminLogin;
-window.handleAdminLogin = handleAdminLogin;
-window.openAdminPanel = openAdminPanel;
-window.closeAdminPanel = closeAdminPanel;
-window.openProductForm = openProductForm;
-window.closeProductForm = closeProductForm;
-window.editProduct = editProduct;
-window.deleteProduct = deleteProduct;
-window.handleProductSubmit = handleProductSubmit;
-window.removeUpload = removeUpload;
-
-
-// ============================================
-// MOBILE NAV — RUNS ON EVERY PAGE & CACHE
-// ============================================
-
-function initMobileNav() {
-    var menuBtn = document.getElementById('mobileMenuBtn');
-    var nav = document.getElementById('mainNav');
-    var overlay = document.getElementById('mobileNavOverlay');
-
-    if (!menuBtn || !nav) return;
-
-    // Prevent double-binding
-    if (menuBtn.dataset.navBound === 'true') return;
-    menuBtn.dataset.navBound = 'true';
-
-    console.log('✅ Mobile nav ready');
-
-    function openMenu() {
-        nav.classList.add('open');
-        if (overlay) overlay.classList.add('show');
-        document.body.style.overflow = 'hidden';
-    }
-
-    function closeMenu() {
-        nav.classList.remove('open');
-        if (overlay) overlay.classList.remove('show');
-        document.body.style.overflow = '';
-    }
-
-    menuBtn.addEventListener('click', function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        if (nav.classList.contains('open')) closeMenu();
-        else openMenu();
-    });
-
-    if (overlay) {
-        overlay.addEventListener('click', closeMenu);
-    }
-
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && nav.classList.contains('open')) closeMenu();
-    });
-}
-
-// Run immediately if DOM ready
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initMobileNav);
-} else {
-    initMobileNav();
-}
-
-// Safety net: run again after full load (handles cache edge cases)
-window.addEventListener('load', initMobileNav);
-
-// Safety net: run again when page becomes visible (bfcache return)
-window.addEventListener('pageshow', function(e) {
-    if (e.persisted) initMobileNav();
-});

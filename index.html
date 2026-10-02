@@ -4,7 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SKINUVIA — Skincare that actually fits your skin</title>
-
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
@@ -26,6 +25,9 @@
             <img src="images/logo.jpeg" alt="SKINUVIA" class="logo-img" />
         </a>
         <nav class="main-nav" id="mainNav">
+            <button class="close-nav-btn" id="closeNavBtn" aria-label="Close menu">
+                <i class="fas fa-times"></i>
+            </button>
             <a href="index.html" class="active">Home</a>
             <a href="shop.html">Shop all</a>
             <a href="routine.html">Routines</a>
@@ -46,7 +48,6 @@
 <div class="mobile-nav-overlay" id="mobileNavOverlay"></div>
 
 <main>
-
     <section class="hero hero-slider">
         <div class="hero-slide active" style="background-image: url('images/olay.webp');"></div>
         <div class="hero-slide" style="background-image: url('images/home2.webp');"></div>
@@ -63,7 +64,6 @@
                     <a href="#story" class="btn-outline">Find your routine</a>
                 </div>
             </div>
-
             <div class="hero-text-slide" data-slide="1">
                 <p class="hero-eyebrow">Clean formulas, real results</p>
                 <h1>Made with <em>ingredients</em> you can trust</h1>
@@ -73,21 +73,19 @@
                     <a href="#story" class="btn-outline">Our ingredients</a>
                 </div>
             </div>
-
             <div class="hero-text-slide" data-slide="2">
                 <p class="hero-eyebrow">Your routine, simplified</p>
                 <h1>Four steps. <em>No</em> guesswork.</h1>
-                <p class="hero-sub">Cleanse, treat, moisturise, protect. That's it. Everything else is optional — and we'll tell you exactly what to use and when.</p>
+                <p class="hero-sub">Cleanse, treat, moisturise, protect. That's it. Everything else is optional.</p>
                 <div class="hero-buttons">
                     <a href="shop.html" class="btn-primary">Build my routine</a>
                     <a href="#story" class="btn-outline">How it works</a>
                 </div>
             </div>
-
             <div class="hero-text-slide" data-slide="3">
                 <p class="hero-eyebrow">Real skin, real people</p>
                 <h1>Loved by <em>12,000+</em> customers</h1>
-                <p class="hero-sub">Join thousands who've finally found a routine that works. Rated 4.9 stars from over 2,400 verified reviews.</p>
+                <p class="hero-sub">Join thousands who've finally found a routine that works. Rated 4.9 stars.</p>
                 <div class="hero-buttons">
                     <a href="shop.html" class="btn-primary">Shop bestsellers</a>
                     <a href="#story" class="btn-outline">Read reviews</a>
@@ -155,7 +153,6 @@
             <div class="product-grid" id="newArrivals"></div>
         </div>
     </section>
-
 </main>
 
 <div class="cart-sidebar" id="cartSidebar">
@@ -185,7 +182,7 @@
     <span id="toastMsg">Done</span>
 </div>
 
-<a href="https://wa.me/447000000000?text=Hi%20SKINUVIA%2C%20I%27d%20like%20to%20ask%20about%20your%20products"
+<a href="https://wa.me/447000000000?text=Hi%20SKINUVIA"
    class="whatsapp-btn" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
     <i class="fab fa-whatsapp"></i>
     <span class="whatsapp-tooltip">Chat with us</span>
@@ -231,10 +228,70 @@
     </div>
 </footer>
 
-<!-- ===== MAIN JS (handles mobile nav) ===== -->
 <script src="js/skinuvia.js"></script>
 
-<!-- ===== PAGE INIT ===== -->
+<script>
+(function() {
+    function initMobileNav() {
+        var menuBtn = document.getElementById('mobileMenuBtn');
+        var closeBtn = document.getElementById('closeNavBtn');
+        var nav = document.getElementById('mainNav');
+        var overlay = document.getElementById('mobileNavOverlay');
+
+        if (!menuBtn || !nav) return;
+        if (menuBtn.dataset.navBound === 'true') return;
+        menuBtn.dataset.navBound = 'true';
+
+        console.log('✅ Mobile nav ready');
+
+        function openMenu() {
+            nav.classList.add('open');
+            if (overlay) overlay.classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeMenu() {
+            nav.classList.remove('open');
+            if (overlay) overlay.classList.remove('show');
+            document.body.style.overflow = '';
+        }
+
+        menuBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (nav.classList.contains('open')) closeMenu();
+            else openMenu();
+        });
+
+        if (closeBtn) {
+            closeBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                closeMenu();
+            });
+        }
+
+        if (overlay) {
+            overlay.addEventListener('click', closeMenu);
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && nav.classList.contains('open')) closeMenu();
+        });
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initMobileNav);
+    } else {
+        initMobileNav();
+    }
+    window.addEventListener('load', initMobileNav);
+    window.addEventListener('pageshow', function(e) {
+        if (e.persisted) initMobileNav();
+    });
+})();
+</script>
+
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     if (typeof initHeroSlider === 'function') initHeroSlider();
