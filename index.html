@@ -13,20 +13,15 @@
 </head>
 <body>
 
-<!-- ANNOUNCEMENT -->
 <div class="announcement-bar">
     <i class="fas fa-leaf"></i> Free UK delivery over £40 · 14-day returns
 </div>
 
-<!-- HEADER -->
 <header class="site-header">
     <div class="container header-inner">
-
-        <!-- Mobile hamburger menu button -->
-        <button class="mobile-menu-btn" onclick="toggleMobileNav()" aria-label="Open menu">
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open menu">
             <i class="fas fa-bars"></i>
         </button>
-
         <a href="index.html" class="logo">
             <img src="images/logo.jpeg" alt="SKINUVIA" class="logo-img" />
         </a>
@@ -37,9 +32,9 @@
             <a href="about.html">About</a>
         </nav>
         <div class="header-actions">
-            <button class="icon-btn" onclick="showToast('Search coming soon')" title="Search">
+            <a href="shop.html" class="icon-btn" title="Shop all">
                 <i class="fas fa-search"></i>
-            </button>
+            </a>
             <button class="icon-btn" onclick="openCart()" title="Cart">
                 <i class="fas fa-shopping-bag"></i>
                 <span class="cart-count" id="cartCount">0</span>
@@ -48,23 +43,17 @@
     </div>
 </header>
 
-<!-- Mobile nav overlay -->
-<div class="mobile-nav-overlay" id="mobileNavOverlay" onclick="toggleMobileNav()"></div>
+<div class="mobile-nav-overlay" id="mobileNavOverlay"></div>
 
-<!-- HOME CONTENT -->
 <main>
 
-    <!-- HERO WITH BACKGROUND SLIDER -->
     <section class="hero hero-slider">
         <div class="hero-slide active" style="background-image: url('images/olay.webp');"></div>
         <div class="hero-slide" style="background-image: url('images/home2.webp');"></div>
         <div class="hero-slide" style="background-image: url('images/home3.avif');"></div>
         <div class="hero-slide" style="background-image: url('images/home4.avif');"></div>
 
-        <!-- Text content — one block per slide -->
         <div class="container hero-content">
-
-            <!-- Slide 1 -->
             <div class="hero-text-slide active" data-slide="0">
                 <p class="hero-eyebrow">Let your skin do the talking</p>
                 <h1>Skincare that <em>actually</em> fits your skin</h1>
@@ -75,7 +64,6 @@
                 </div>
             </div>
 
-            <!-- Slide 2 -->
             <div class="hero-text-slide" data-slide="1">
                 <p class="hero-eyebrow">Clean formulas, real results</p>
                 <h1>Made with <em>ingredients</em> you can trust</h1>
@@ -86,7 +74,6 @@
                 </div>
             </div>
 
-            <!-- Slide 3 -->
             <div class="hero-text-slide" data-slide="2">
                 <p class="hero-eyebrow">Your routine, simplified</p>
                 <h1>Four steps. <em>No</em> guesswork.</h1>
@@ -97,7 +84,6 @@
                 </div>
             </div>
 
-            <!-- Slide 4 -->
             <div class="hero-text-slide" data-slide="3">
                 <p class="hero-eyebrow">Real skin, real people</p>
                 <h1>Loved by <em>12,000+</em> customers</h1>
@@ -107,10 +93,8 @@
                     <a href="#story" class="btn-outline">Read reviews</a>
                 </div>
             </div>
-
         </div>
 
-        <!-- Slide indicators -->
         <div class="hero-dots">
             <span class="hero-dot active" data-slide="0"></span>
             <span class="hero-dot" data-slide="1"></span>
@@ -119,29 +103,15 @@
         </div>
     </section>
 
-    <!-- TRUST BAR -->
     <section class="trust-bar">
         <div class="container trust-inner">
-            <div class="trust-item">
-                <i class="fas fa-truck"></i>
-                <div><strong>Next-day delivery</strong><span>UK Mon–Fri</span></div>
-            </div>
-            <div class="trust-item">
-                <i class="fas fa-undo"></i>
-                <div><strong>14-day returns</strong><span>On unopened items</span></div>
-            </div>
-            <div class="trust-item">
-                <i class="fas fa-flask"></i>
-                <div><strong>Full ingredients</strong><span>Nothing hidden</span></div>
-            </div>
-            <div class="trust-item">
-                <i class="fas fa-leaf"></i>
-                <div><strong>Cruelty-free</strong><span>Always vegan</span></div>
-            </div>
+            <div class="trust-item"><i class="fas fa-truck"></i><div><strong>Next-day delivery</strong><span>UK Mon–Fri</span></div></div>
+            <div class="trust-item"><i class="fas fa-undo"></i><div><strong>14-day returns</strong><span>On unopened items</span></div></div>
+            <div class="trust-item"><i class="fas fa-flask"></i><div><strong>Full ingredients</strong><span>Nothing hidden</span></div></div>
+            <div class="trust-item"><i class="fas fa-leaf"></i><div><strong>Cruelty-free</strong><span>Always vegan</span></div></div>
         </div>
     </section>
 
-    <!-- CATEGORIES -->
     <section class="section categories-section">
         <div class="container">
             <div class="categories-header">
@@ -152,7 +122,6 @@
         </div>
     </section>
 
-    <!-- STORY -->
     <section class="section section-alt section-centered" id="story">
         <div class="container">
             <p class="eyebrow">Why SKINUVIA</p>
@@ -161,7 +130,6 @@
         </div>
     </section>
 
-    <!-- BEST SELLERS -->
     <section class="section">
         <div class="container">
             <div class="section-header-row">
@@ -175,7 +143,6 @@
         </div>
     </section>
 
-    <!-- NEW ARRIVALS -->
     <section class="section section-alt">
         <div class="container">
             <div class="section-header-row">
@@ -191,7 +158,6 @@
 
 </main>
 
-<!-- ===== CART SIDEBAR (only ONE) ===== -->
 <div class="cart-sidebar" id="cartSidebar">
     <div class="cart-header">
         <h3>Your Bag</h3>
@@ -206,34 +172,25 @@
             <span>£<span id="cartTotal">0.00</span></span>
         </div>
         <p class="cart-note">Shipping calculated at checkout</p>
-        <button class="btn-primary btn-full" onclick="checkout()">
-            Proceed to checkout
-        </button>
+        <button class="btn-primary btn-full" onclick="checkout()">Proceed to checkout</button>
         <button class="btn-whatsapp-checkout" onclick="checkoutWhatsApp()">
-            <i class="fab fa-whatsapp"></i>
-            Complete order on WhatsApp
+            <i class="fab fa-whatsapp"></i> Complete order on WhatsApp
         </button>
     </div>
 </div>
 <div class="overlay" id="overlay" onclick="closeCart()"></div>
 
-<!-- TOAST -->
 <div class="toast" id="toast">
     <i class="fas fa-check-circle"></i>
     <span id="toastMsg">Done</span>
 </div>
 
-<!-- ===== WHATSAPP FLOATING BUTTON ===== -->
 <a href="https://wa.me/447000000000?text=Hi%20SKINUVIA%2C%20I%27d%20like%20to%20ask%20about%20your%20products"
-   class="whatsapp-btn"
-   target="_blank"
-   rel="noopener"
-   aria-label="Chat on WhatsApp">
+   class="whatsapp-btn" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
     <i class="fab fa-whatsapp"></i>
     <span class="whatsapp-tooltip">Chat with us</span>
 </a>
 
-<!-- FOOTER -->
 <footer class="site-footer">
     <div class="container footer-inner">
         <div class="footer-brand">
@@ -274,13 +231,16 @@
     </div>
 </footer>
 
+<!-- ===== MAIN JS (handles mobile nav) ===== -->
 <script src="js/skinuvia.js"></script>
+
+<!-- ===== PAGE INIT ===== -->
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        initHeroSlider();
-        renderHome();
-        renderCategories();
-    });
+document.addEventListener('DOMContentLoaded', function() {
+    if (typeof initHeroSlider === 'function') initHeroSlider();
+    if (typeof renderHome === 'function') renderHome();
+    if (typeof renderCategories === 'function') renderCategories();
+});
 </script>
 
 </body>

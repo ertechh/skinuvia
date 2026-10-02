@@ -18,22 +18,38 @@
     <i class="fas fa-leaf"></i> Free UK delivery over £40 · 14-day returns
 </div>
 
+<!-- ANNOUNCEMENT -->
+<div class="announcement-bar">
+    <i class="fas fa-leaf"></i> Free UK delivery over £40 · 14-day returns
+</div>
+
 <!-- HEADER -->
 <header class="site-header">
     <div class="container header-inner">
+
+        <!-- Mobile hamburger -->
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open menu">
+            <i class="fas fa-bars"></i>
+        </button>
+
+        <!-- Logo -->
         <a href="index.html" class="logo">
-            <span class="logo-dot"></span> SKINUVIA
+            <img src="images/logo.jpeg" alt="SKINUVIA" class="logo-img" />
         </a>
-        <nav class="main-nav">
+
+        <!-- Nav -->
+        <nav class="main-nav" id="mainNav">
             <a href="index.html">Home</a>
             <a href="shop.html">Shop all</a>
-            <a href="routine.html" class="active">Routines</a>
+            <a href="routine.html">Routines</a>
             <a href="about.html">About</a>
         </nav>
+
+        <!-- Actions -->
         <div class="header-actions">
-            <button class="icon-btn" onclick="showToast('Search coming soon')" title="Search">
+            <a href="shop.html" class="icon-btn" title="Shop all">
                 <i class="fas fa-search"></i>
-            </button>
+            </a>
             <button class="icon-btn" onclick="openCart()" title="Cart">
                 <i class="fas fa-shopping-bag"></i>
                 <span class="cart-count" id="cartCount">0</span>
@@ -41,6 +57,11 @@
         </div>
     </div>
 </header>
+
+<!-- Mobile nav overlay -->
+<div class="mobile-nav-overlay" id="mobileNavOverlay"></div>
+<!-- Mobile nav overlay -->
+<div class="mobile-nav-overlay" id="mobileNavOverlay" onclick="toggleMobileNav()"></div>
 
 <main>
 

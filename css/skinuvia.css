@@ -338,12 +338,10 @@ button { font-family: inherit; cursor: pointer; }
 
 .hero-slide.active { opacity: 1; }
 
-/* NO overlay — image stays fully crisp */
 .hero-slider::before {
     display: none;
 }
 
-/* Text readability via soft white shadow (invisible, just for contrast) */
 .hero-slider h1 {
     text-shadow: 0 2px 24px rgba(255, 255, 255, 0.85);
 }
@@ -940,124 +938,6 @@ button { font-family: inherit; cursor: pointer; }
 }
 
 .product-modal-benefits i { color: var(--sage); width: 16px; font-size: 0.9rem; }
-
-/* ============================================
-   MOBILE MENU
-   ============================================ */
-
-.mobile-menu-btn {
-    display: none;
-    background: none;
-    border: none;
-    font-size: 1.4rem;
-    color: var(--text);
-    cursor: pointer;
-    padding: 8px;
-    transition: color 0.2s;
-}
-
-.mobile-menu-btn:hover { color: var(--sage); }
-
-.mobile-nav-overlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(31, 36, 33, 0.5);
-    z-index: 998;
-    opacity: 0;
-    transition: opacity 0.3s;
-}
-
-.mobile-nav-overlay.show {
-    display: block;
-    opacity: 1;
-}
-
-/* ===== RESPONSIVE ===== */
-@media (max-width: 768px) {
-    .header-inner {
-        grid-template-columns: auto auto 1fr auto;
-        gap: 12px;
-        padding: 12px 0;
-    }
-
-    /* Show hamburger */
-    .mobile-menu-btn {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        order: 0;
-    }
-
-    /* Logo next to hamburger */
-    .logo { order: 1; }
-    .header-actions { order: 3; }
-
-    /* Turn nav into a slide-in drawer */
-    .main-nav {
-        position: fixed;
-        top: 0;
-        left: -320px;
-        width: 300px;
-        max-width: 85vw;
-        height: 100vh;
-        background: var(--white);
-        flex-direction: column;
-        justify-content: flex-start;
-        align-items: flex-start;
-        padding: 100px 32px 32px;
-        gap: 0;
-        box-shadow: 4px 0 40px rgba(0, 0, 0, 0.1);
-        transition: left 0.35s cubic-bezier(0.22, 1, 0.36, 1);
-        z-index: 999;
-        display: flex;
-    }
-
-    .main-nav.open {
-        left: 0;
-    }
-
-    .main-nav a {
-        font-size: 1.15rem;
-        font-weight: 400;
-        padding: 18px 0;
-        width: 100%;
-        border-bottom: 1px solid var(--border);
-        text-align: left;
-    }
-
-    .main-nav a.active::after { display: none; }
-    .main-nav a.active {
-        color: var(--sage);
-        font-weight: 500;
-    }
-
-    /* Close button inside the drawer */
-    .main-nav::before {
-        content: '✕';
-        position: absolute;
-        top: 24px;
-        right: 24px;
-        font-size: 1.4rem;
-        color: var(--text-muted);
-        cursor: pointer;
-        font-family: 'Inter', sans-serif;
-        line-height: 1;
-    }
-}
-
-/* Very small phones */
-@media (max-width: 480px) {
-    .header-inner {
-        grid-template-columns: auto auto 1fr auto;
-        gap: 8px;
-        padding: 10px 0;
-    }
-
-    .logo img, .logo-img { height: 44px; max-width: 130px; }
-    .mobile-menu-btn { font-size: 1.25rem; padding: 6px; }
-    .icon-btn { padding: 6px; font-size: 0.95rem; }
-}
 
 /* ===== CART SIDEBAR ===== */
 .cart-sidebar {
@@ -2283,7 +2163,139 @@ button { font-family: inherit; cursor: pointer; }
 .btn-whatsapp-checkout i { font-size: 1.05rem; }
 
 /* ============================================
-   RESPONSIVE
+   MOBILE MENU — FINAL
+   ============================================ */
+
+.mobile-menu-btn {
+    display: none;
+}
+
+.mobile-nav-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(31, 36, 33, 0.5);
+    z-index: 998;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.mobile-nav-overlay.show {
+    display: block;
+    opacity: 1;
+}
+
+@media (max-width: 768px) {
+
+    .header-inner {
+        display: grid;
+        grid-template-columns: auto auto 1fr auto;
+        gap: 10px;
+        padding: 12px 0;
+        align-items: center;
+    }
+
+    .mobile-menu-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: none;
+        border: none;
+        font-size: 1.4rem;
+        color: var(--text);
+        cursor: pointer;
+        padding: 6px;
+        z-index: 1001;
+        position: relative;
+    }
+
+    .logo img,
+    .logo-img {
+        height: 48px;
+        width: auto;
+        max-width: 140px;
+    }
+
+    .header-actions {
+        display: flex;
+        gap: 6px;
+        justify-content: flex-end;
+    }
+
+    /* Slide-in drawer */
+    .main-nav {
+        position: fixed;
+        top: 0;
+        left: -320px;
+        width: 300px;
+        max-width: 85vw;
+        height: 100vh;
+        background: var(--white);
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        padding: 90px 32px 32px;
+        gap: 0;
+        box-shadow: 4px 0 40px rgba(0, 0, 0, 0.12);
+        transition: left 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+        z-index: 1000;
+        overflow-y: auto;
+        pointer-events: auto;
+    }
+
+    .main-nav.open {
+        left: 0;
+    }
+
+    .main-nav a {
+        font-size: 1.15rem;
+        font-weight: 400;
+        padding: 20px 0;
+        width: 100%;
+        border-bottom: 1px solid var(--border);
+        text-align: left;
+        color: var(--text);
+        display: block;
+        pointer-events: auto;
+        position: relative;
+        z-index: 1001;
+    }
+
+    .main-nav a:last-child {
+        border-bottom: none;
+    }
+
+    .main-nav a.active {
+        color: var(--sage);
+        font-weight: 500;
+    }
+
+    .main-nav a.active::after {
+        display: none;
+    }
+
+    .main-nav::after {
+        content: '✕';
+        position: absolute;
+        top: 32px;
+        right: 28px;
+        font-size: 1.5rem;
+        color: var(--text);
+        cursor: pointer;
+        line-height: 1;
+        font-family: 'Inter', sans-serif;
+        padding: 8px;
+        z-index: 1002;
+    }
+
+    body.menu-open {
+        overflow: hidden;
+    }
+}
+/* ============================================
+   RESPONSIVE — 1024px
    ============================================ */
 
 @media (max-width: 1024px) {
@@ -2319,10 +2331,15 @@ button { font-family: inherit; cursor: pointer; }
     .faq-grid { grid-template-columns: 1fr; }
 }
 
+/* ============================================
+   RESPONSIVE — 768px (MOBILE)
+   ============================================ */
+
 @media (max-width: 768px) {
+
+    /* ----- Hero ----- */
     .hero-slider { min-height: auto; padding: 60px 0; }
     .hero-slide { background-position: center bottom; }
-
     .hero-content { min-height: 520px; }
     .hero-text-slide { max-width: 100%; }
     .hero-eyebrow { font-size: 1.15rem; margin-bottom: 16px; }
@@ -2333,13 +2350,113 @@ button { font-family: inherit; cursor: pointer; }
     .btn-outline { width: 100%; text-align: center; padding: 16px 28px; }
     .hero-dots { bottom: 20px; }
 
-    .container { padding: 0 24px; }
-    .main-nav { display: none; }
-    .header-inner { padding: 12px 0; }
+    /* ----- Layout ----- */
+    .container { padding: 0 20px; }
 
-    .logo img, .logo-img { height: 52px; width: auto; max-width: 160px; }
-    .site-footer .logo img { height: 42px; width: auto; max-width: 140px; }
+    /* ----- Header with hamburger ----- */
+    .header-inner {
+        display: grid;
+        grid-template-columns: auto auto 1fr auto;
+        gap: 12px;
+        padding: 10px 0;
+        align-items: center;
+    }
 
+    .mobile-menu-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: none;
+        border: none;
+        font-size: 1.4rem;
+        color: var(--text);
+        cursor: pointer;
+        padding: 6px;
+        transition: color 0.2s;
+    }
+
+    .mobile-menu-btn:hover,
+    .mobile-menu-btn:active {
+        color: var(--sage);
+    }
+
+    .logo { display: flex; align-items: center; }
+
+    .logo img,
+    .logo-img {
+        height: 52px;
+        width: auto;
+        max-width: 150px;
+    }
+
+    .site-footer .logo img { height: 42px; max-width: 130px; }
+
+    .header-actions {
+        display: flex;
+        gap: 4px;
+        justify-content: flex-end;
+    }
+
+    /* ----- Nav as slide-in drawer ----- */
+    .main-nav {
+        position: fixed;
+        top: 0;
+        left: -320px;
+        width: 300px;
+        max-width: 85vw;
+        height: 100vh;
+        background: var(--white);
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        padding: 90px 32px 32px;
+        gap: 0;
+        box-shadow: 4px 0 40px rgba(0, 0, 0, 0.12);
+        transition: left 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+        z-index: 999;
+        overflow-y: auto;
+    }
+
+    .main-nav.open { left: 0; }
+
+    .main-nav a {
+        font-size: 1.15rem;
+        font-weight: 400;
+        padding: 20px 0;
+        width: 100%;
+        border-bottom: 1px solid var(--border);
+        text-align: left;
+        color: var(--text);
+        display: block;
+    }
+
+    .main-nav a:last-child { border-bottom: none; }
+
+    .main-nav a.active {
+        color: var(--sage);
+        font-weight: 500;
+    }
+
+    .main-nav a.active::after { display: none; }
+
+    .main-nav::after {
+        content: '✕';
+        position: absolute;
+        top: 24px;
+        right: 24px;
+        font-size: 1.5rem;
+        color: var(--text);
+        cursor: pointer;
+        line-height: 1;
+        font-family: 'Inter', sans-serif;
+        padding: 8px;
+        z-index: 2;
+    }
+
+    body.menu-open { overflow: hidden; }
+
+    /* ----- Other sections ----- */
     .trust-inner { grid-template-columns: repeat(2, 1fr); gap: 24px; }
     .categories-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
     .category-card { padding: 28px 14px 22px; }
@@ -2355,6 +2472,7 @@ button { font-family: inherit; cursor: pointer; }
     .cart-sidebar { width: 100%; right: -100%; padding: 24px; }
     .footer-inner { grid-template-columns: 1fr; gap: 32px; }
     .footer-bottom { flex-direction: column; text-align: center; gap: 12px; }
+
     .admin-panel-header { padding: 16px 20px; }
     .admin-panel-body { padding: 20px; }
     .admin-table-wrapper { overflow-x: auto; }
@@ -2395,6 +2513,10 @@ button { font-family: inherit; cursor: pointer; }
     .whatsapp-tooltip { display: none; }
 }
 
+/* ============================================
+   RESPONSIVE — 480px (SMALL PHONES)
+   ============================================ */
+
 @media (max-width: 480px) {
     .hero-slider { padding: 48px 0 80px; }
     .hero-slider h1 { font-size: 2rem; }
@@ -2402,9 +2524,21 @@ button { font-family: inherit; cursor: pointer; }
     .hero-slider .hero-sub { font-size: 0.92rem; }
     .hero-content { min-height: 500px; }
 
-    .header-inner { padding: 10px 0; gap: 12px; }
-    .logo img, .logo-img { height: 44px; width: auto; max-width: 130px; }
-    .site-footer .logo img { height: 36px; width: auto; max-width: 120px; }
+    .header-inner {
+        gap: 8px;
+        padding: 8px 0;
+    }
+
+    .mobile-menu-btn { font-size: 1.25rem; padding: 4px; }
+
+    .logo img,
+    .logo-img { height: 42px; max-width: 120px; }
+    .site-footer .logo img { height: 36px; max-width: 110px; }
+
+    .icon-btn { padding: 6px; font-size: 0.9rem; }
+
+    .main-nav { width: 260px; padding: 80px 24px 24px; }
+    .main-nav a { font-size: 1.05rem; padding: 18px 0; }
 
     .admin-btn { font-size: 0.65rem; padding: 6px 12px; }
     .product-grid { gap: 24px 12px; }
