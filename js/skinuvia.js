@@ -49,12 +49,21 @@ function loadProducts() {
 }
 
 function saveProducts() {
-    localStorage.setItem('skinuvia_products', JSON.stringify(products));
-    console.log('💾 Saved ' + products.length + ' products');
+    try {
+        localStorage.setItem('skinuvia_products', JSON.stringify(products));
+        console.log('💾 Saved ' + products.length + ' products');
+    } catch (e) {
+        console.warn('Save failed:', e);
+    }
 }
 
 var products = loadProducts();
-var cart = JSON.parse(localStorage.getItem('skinuvia_cart')) || [];
+var cart = [];
+try {
+    cart = JSON.parse(localStorage.getItem('skinuvia_cart')) || [];
+} catch (e) {
+    cart = [];
+}
 
 // ===== TOAST =====
 var toastTimer;
@@ -74,6 +83,8 @@ function initHeroSlider() {
     var texts = document.querySelectorAll('.hero-text-slide');
     var dots = document.querySelectorAll('.hero-dot');
     if (slides.length === 0) return;
+    if (slides[0].dataset.sliderBound === 'true') return;
+    slides[0].dataset.sliderBound = 'true';
 
     console.log('🌿 Hero slider: ' + slides.length + ' slides');
 
@@ -315,8 +326,9 @@ function initProductDetail() {
 
     var qty = 1;
     var qtyEl = document.getElementById('qtyValue');
-    var minusBtn = document.getElementById('qtyMinus');
-    var plusBtn = document.getElementById('qtyPlus');
+
+    var minusBtn = document.querySelector('.qty-selector button:first-child');
+    var plusBtn  = document.querySelector('.qty-selector button:last-child');
 
     if (minusBtn) minusBtn.onclick = function() {
         if (qty > 1) { qty--; if (qtyEl) qtyEl.textContent = qty; }
@@ -359,7 +371,6 @@ function initProductDetail() {
 // ===== MOBILE NAVIGATION =====
 function initMobileNav() {
     var menuBtn = document.getElementById('mobileMenuBtn');
-    var closeBtn = document.getElementById('closeNavBtn');
     var nav = document.getElementById('mainNav');
     var overlay = document.getElementById('mobileNavOverlay');
 
@@ -373,17 +384,21 @@ function initMobileNav() {
 
     function openMenu() {
         nav.classList.add('open');
+        menuBtn.classList.add('open');
+        menuBtn.setAttribute('aria-expanded', 'true');
         if (overlay) overlay.classList.add('show');
         document.body.style.overflow = 'hidden';
     }
 
     function closeMenu() {
         nav.classList.remove('open');
+        menuBtn.classList.remove('open');
+        menuBtn.setAttribute('aria-expanded', 'false');
         if (overlay) overlay.classList.remove('show');
         document.body.style.overflow = '';
     }
 
-    // Hamburger toggle
+    // Hamburger toggle (button also morphs to X)
     menuBtn.addEventListener('click', function(e) {
         e.preventDefault();
         e.stopPropagation();
@@ -391,16 +406,7 @@ function initMobileNav() {
         else openMenu();
     });
 
-    // ✕ close button
-    if (closeBtn) {
-        closeBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            closeMenu();
-        });
-    }
-
-    // Overlay click closes
+    // Overlay click closes (pointer-events is on when shown)
     if (overlay) {
         overlay.addEventListener('click', closeMenu);
     }
@@ -446,11 +452,12 @@ function bindEvents() {
         r.addEventListener('change', renderShop);
     });
 
+    var clearBtn = document.getElementById('clearFilters');
+    if (clearBtn) clearBtn.addEventListener('click', resetFilters);
+
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') {
             closeCart();
-            closeProductForm();
-            closeAdminLogin();
         }
     });
 }
@@ -469,6 +476,7 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('✅ SKINUVIA ready — ' + products.length + ' products');
 });
 
+// Safety net if DOMContentLoaded already fired
 if (document.readyState === 'complete' || document.readyState === 'interactive') {
     setTimeout(function() {
         bindEvents();
