@@ -4,16 +4,28 @@
 
 console.log('🌿 SKINUVIA initialising');
 
-// ===== DEFAULT PRODUCTS =====
+// ===== CURRENCY =====
+var CURRENCY = '₦';
+
+// Format a number as Naira with thousands separators, e.g. ₦24,000.00
+function formatPrice(n) {
+    var num = parseFloat(n) || 0;
+    return CURRENCY + num.toLocaleString('en-NG', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+    });
+}
+
+// ===== DEFAULT PRODUCTS (prices in Naira) =====
 var defaultProducts = [
-    { id: 1, name: "Gentle Foaming Cleanser", price: 24.00, category: "cleansers", routine: "Step 1 · Morning & Night", description: "Removes makeup and grime without stripping.", image: "https://images.unsplash.com/photo-1556228720-195a672e8a03?w=600&h=600&fit=crop" },
-    { id: 2, name: "Hydrating Serum", price: 32.00, category: "serums", routine: "Step 2 · Morning & Night", description: "Hyaluronic acid + niacinamide. Plumps and calms.", image: "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=600&h=600&fit=crop" },
-    { id: 3, name: "Barrier Repair Moisturiser", price: 28.00, category: "moisturisers", routine: "Step 3 · Morning & Night", description: "Ceramides and squalane for a healthy barrier.", image: "https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?w=600&h=600&fit=crop" },
-    { id: 4, name: "Daily SPF 50", price: 26.00, category: "spf", routine: "Step 4 · Morning only", description: "Lightweight, no white cast, non-greasy.", image: "https://images.unsplash.com/photo-1570194065650-d99fb4bedf0a?w=600&h=600&fit=crop" },
-    { id: 5, name: "Overnight Repair Mask", price: 38.00, category: "treatments", routine: "Step 3 · 2–3 nights a week", description: "Wake up to softer, smoother skin.", image: "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=600&h=600&fit=crop" },
-    { id: 6, name: "Vitamin C Brightening Serum", price: 36.00, category: "serums", routine: "Step 2 · Morning", description: "Fades dark spots, brightens dull skin.", image: "https://images.unsplash.com/photo-1611930022073-b7a4ba5fcccd?w=600&h=600&fit=crop" },
-    { id: 7, name: "Calming Toner", price: 20.00, category: "cleansers", routine: "Step 1.5 · After cleansing", description: "Rose water and chamomile to soothe.", image: "https://images.unsplash.com/photo-1612817288484-6f916006741a?w=600&h=600&fit=crop" },
-    { id: 8, name: "Retinol Night Serum", price: 42.00, category: "treatments", routine: "Step 3 · 2–3 nights a week", description: "Gentle encapsulated retinol for fine lines.", image: "https://images.unsplash.com/photo-1611930021592-a8cfd5319e18?w=600&h=600&fit=crop" }
+    { id: 1, name: "Gentle Foaming Cleanser",     price: 24000, category: "cleansers",    routine: "Step 1 · Morning & Night", description: "Removes makeup and grime without stripping.", image: "https://images.unsplash.com/photo-1556228720-195a672e8a03?w=600&h=600&fit=crop" },
+    { id: 2, name: "Hydrating Serum",             price: 32000, category: "serums",       routine: "Step 2 · Morning & Night", description: "Hyaluronic acid + niacinamide. Plumps and calms.", image: "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=600&h=600&fit=crop" },
+    { id: 3, name: "Barrier Repair Moisturiser",  price: 28000, category: "moisturisers", routine: "Step 3 · Morning & Night", description: "Ceramides and squalane for a healthy barrier.", image: "https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?w=600&h=600&fit=crop" },
+    { id: 4, name: "Daily SPF 50",                price: 26000, category: "spf",          routine: "Step 4 · Morning only",    description: "Lightweight, no white cast, non-greasy.", image: "https://images.unsplash.com/photo-1570194065650-d99fb4bedf0a?w=600&h=600&fit=crop" },
+    { id: 5, name: "Overnight Repair Mask",       price: 38000, category: "treatments",   routine: "Step 3 · 2–3 nights a week", description: "Wake up to softer, smoother skin.", image: "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=600&h=600&fit=crop" },
+    { id: 6, name: "Vitamin C Brightening Serum", price: 36000, category: "serums",       routine: "Step 2 · Morning",         description: "Fades dark spots, brightens dull skin.", image: "https://images.unsplash.com/photo-1611930022073-b7a4ba5fcccd?w=600&h=600&fit=crop" },
+    { id: 7, name: "Calming Toner",               price: 20000, category: "cleansers",    routine: "Step 1.5 · After cleansing", description: "Rose water and chamomile to soothe.", image: "https://images.unsplash.com/photo-1612817288484-6f916006741a?w=600&h=600&fit=crop" },
+    { id: 8, name: "Retinol Night Serum",         price: 42000, category: "treatments",   routine: "Step 3 · 2–3 nights a week", description: "Gentle encapsulated retinol for fine lines.", image: "https://images.unsplash.com/photo-1611930021592-a8cfd5319e18?w=600&h=600&fit=crop" }
 ];
 
 // ===== CATEGORIES =====
@@ -150,7 +162,7 @@ function cardHTML(p) {
         '<p class="product-routine">' + (p.routine || '') + '</p>' +
         '<h3>' + p.name + '</h3>' +
         '<p class="product-desc">' + (p.description || '') + '</p>' +
-        '<p class="product-price">£' + parseFloat(p.price).toFixed(2) + '</p>' +
+        '<p class="product-price">' + formatPrice(p.price) + '</p>' +
         '<button type="button" class="add-btn" onclick="event.preventDefault(); event.stopPropagation(); quickAdd(' + p.id + ');">Add to bag</button>' +
     '</a>';
 }
@@ -205,7 +217,7 @@ function resetFilters() {
     var sort = document.getElementById('sortSelect');
     if (s) s.value = '';
     if (p) p.value = '100';
-    if (pd) pd.textContent = '£100';
+    if (pd) pd.textContent = formatPrice(100);
     if (sort) sort.value = 'default';
     var all = document.querySelector('input[name="category"][value="all"]');
     if (all) all.checked = true;
@@ -239,7 +251,10 @@ function updateCart() {
 
     var total = cart.reduce(function(s, i) { return s + i.price * i.quantity; }, 0);
     var totalEl = document.getElementById('cartTotal');
-    if (totalEl) totalEl.textContent = total.toFixed(2);
+    if (totalEl) totalEl.textContent = total.toLocaleString('en-NG', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+    });
 
     var items = document.getElementById('cartItems');
     if (!items) return;
@@ -249,7 +264,7 @@ function updateCart() {
     }
     items.innerHTML = cart.map(function(i) {
         return '<div class="cart-item">' +
-            '<div class="cart-item-info"><h4>' + i.name + '</h4><span>£' + i.price.toFixed(2) + ' × ' + i.quantity + '</span></div>' +
+            '<div class="cart-item-info"><h4>' + i.name + '</h4><span>' + formatPrice(i.price) + ' × ' + i.quantity + '</span></div>' +
             '<button class="remove-btn" onclick="removeFromCart(' + i.id + ')">Remove</button>' +
         '</div>';
     }).join('');
@@ -274,7 +289,7 @@ function closeCart() {
 function checkout() {
     if (cart.length === 0) { showToast('Your bag is empty'); return; }
     var total = cart.reduce(function(s, i) { return s + i.price * i.quantity; }, 0);
-    if (confirm('Total: £' + total.toFixed(2) + '\n\nProceed to checkout?')) {
+    if (confirm('Total: ' + formatPrice(total) + '\n\nProceed to checkout?')) {
         showToast('Thank you — order placed (demo)');
         cart = [];
         updateCart();
@@ -290,9 +305,9 @@ function checkoutWhatsApp() {
     cart.forEach(function(item, index) {
         var lineTotal = item.price * item.quantity;
         total += lineTotal;
-        message += (index + 1) + '. ' + item.name + '\n   Qty: ' + item.quantity + ' × £' + item.price.toFixed(2) + ' = £' + lineTotal.toFixed(2) + '\n\n';
+        message += (index + 1) + '. ' + item.name + '\n   Qty: ' + item.quantity + ' × ' + formatPrice(item.price) + ' = ' + formatPrice(lineTotal) + '\n\n';
     });
-    message += 'Total: £' + total.toFixed(2) + '\n\nPlease confirm availability. Thank you!';
+    message += 'Total: ' + formatPrice(total) + '\n\nPlease confirm availability. Thank you!';
     window.open('https://wa.me/' + WHATSAPP + '?text=' + encodeURIComponent(message), '_blank');
 }
 
@@ -314,7 +329,7 @@ function initProductDetail() {
     nameEl.textContent = product.name;
     document.getElementById('productRoutine').textContent = product.routine || '';
     document.getElementById('productDescription').textContent = product.description || '';
-    document.getElementById('productPrice').textContent = '£' + parseFloat(product.price).toFixed(2);
+    document.getElementById('productPrice').textContent = formatPrice(product.price);
 
     var imgEl = document.getElementById('productImage');
     if (imgEl) {
@@ -376,7 +391,6 @@ function initMobileNav() {
 
     if (!menuBtn || !nav) return;
 
-    // Prevent double-binding
     if (menuBtn.dataset.navBound === 'true') return;
     menuBtn.dataset.navBound = 'true';
 
@@ -398,7 +412,6 @@ function initMobileNav() {
         document.body.style.overflow = '';
     }
 
-    // Hamburger toggle (button also morphs to X)
     menuBtn.addEventListener('click', function(e) {
         e.preventDefault();
         e.stopPropagation();
@@ -406,12 +419,10 @@ function initMobileNav() {
         else openMenu();
     });
 
-    // Overlay click closes (pointer-events is on when shown)
     if (overlay) {
         overlay.addEventListener('click', closeMenu);
     }
 
-    // Escape key closes
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape' && nav.classList.contains('open')) closeMenu();
     });
@@ -440,7 +451,7 @@ function bindEvents() {
     if (priceRange) {
         priceRange.addEventListener('input', function() {
             var pd = document.getElementById('priceDisplay');
-            if (pd) pd.textContent = '£' + this.value;
+            if (pd) pd.textContent = formatPrice(this.value);
             renderShop();
         });
     }
@@ -476,7 +487,6 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('✅ SKINUVIA ready — ' + products.length + ' products');
 });
 
-// Safety net if DOMContentLoaded already fired
 if (document.readyState === 'complete' || document.readyState === 'interactive') {
     setTimeout(function() {
         bindEvents();
@@ -490,7 +500,6 @@ if (document.readyState === 'complete' || document.readyState === 'interactive')
     }, 100);
 }
 
-// Safety nets for bfcache (browser back/forward)
 window.addEventListener('load', initMobileNav);
 window.addEventListener('pageshow', function(e) {
     if (e.persisted) initMobileNav();
@@ -506,3 +515,4 @@ window.checkout = checkout;
 window.checkoutWhatsApp = checkoutWhatsApp;
 window.resetFilters = resetFilters;
 window.removeFromCart = removeFromCart;
+window.formatPrice = formatPrice;

@@ -15,12 +15,7 @@
 
 <!-- ANNOUNCEMENT -->
 <div class="announcement-bar">
-    <i class="fas fa-leaf"></i> Free UK delivery over £40 · 14-day returns
-</div>
-
-<!-- ANNOUNCEMENT -->
-<div class="announcement-bar">
-    <i class="fas fa-leaf"></i> Free UK delivery over £40 · 14-day returns
+    <i class="fas fa-leaf"></i> Free delivery over ₦40,000 · 14-day returns
 </div>
 
 <!-- HEADER -->
@@ -28,11 +23,11 @@
     <div class="container header-inner">
 
         <!-- Mobile hamburger -->
-       <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open menu" aria-expanded="false">
-    <span class="hamburger-line"></span>
-    <span class="hamburger-line"></span>
-    <span class="hamburger-line"></span>
-</button>
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open menu" aria-expanded="false">
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+        </button>
 
         <!-- Logo -->
         <a href="index.html" class="logo">
@@ -62,8 +57,6 @@
 
 <!-- Mobile nav overlay -->
 <div class="mobile-nav-overlay" id="mobileNavOverlay"></div>
-<!-- Mobile nav overlay -->
-<div class="mobile-nav-overlay" id="mobileNavOverlay" onclick="toggleMobileNav()"></div>
 
 <main>
 
@@ -92,27 +85,27 @@
                         <span class="stars">★★★★★</span>
                         <span class="rating-text">4.9 · 240 reviews</span>
                     </div>
-                    <p class="product-detail-price" id="productPrice">£0.00</p>
+                    <p class="product-detail-price" id="productPrice">₦0.00</p>
                     <p class="product-detail-desc" id="productDescription"></p>
 
                     <!-- Single actions block -->
                     <div class="product-detail-actions">
                         <div class="qty-selector">
-                            <button onclick="changeQty(-1)">−</button>
+                            <button type="button">−</button>
                             <span id="qtyValue">1</span>
-                            <button onclick="changeQty(1)">+</button>
+                            <button type="button">+</button>
                         </div>
                         <button class="btn-primary" id="addToCartBtn">Add to bag</button>
                     </div>
 
                     <!-- Order on WhatsApp -->
-                    <a href="#" class="whatsapp-order-btn" id="whatsappOrderBtn" target="_blank" rel="noopener">
+                    <a href="https://wa.me/2348012345678?text=Hi%20SKINUVIA" class="whatsapp-order-btn" id="whatsappOrderBtn" target="_blank" rel="noopener">
                         <i class="fab fa-whatsapp"></i>
                         Order on WhatsApp
                     </a>
 
                     <div class="product-detail-benefits">
-                        <div><i class="fas fa-truck"></i> UK next-day delivery</div>
+                        <div><i class="fas fa-truck"></i> Nationwide delivery</div>
                         <div><i class="fas fa-undo"></i> 14-day returns</div>
                         <div><i class="fas fa-flask"></i> Full ingredients listed</div>
                     </div>
@@ -188,7 +181,7 @@
     <div class="cart-footer">
         <div class="cart-total-row">
             <span>Subtotal</span>
-            <span>£<span id="cartTotal">0.00</span></span>
+            <span>₦<span id="cartTotal">0.00</span></span>
         </div>
         <p class="cart-note">Shipping calculated at checkout</p>
         <button class="btn-primary btn-full" onclick="checkout()">
@@ -209,7 +202,7 @@
 </div>
 
 <!-- WHATSAPP FLOATING BUTTON -->
-<a href="https://wa.me/447000000000?text=Hi%20SKINUVIA%2C%20I%27d%20like%20to%20ask%20about%20your%20products"
+<a href="https://wa.me/2348012345678?text=Hi%20SKINUVIA%2C%20I%27d%20like%20to%20ask%20about%20your%20products"
    class="whatsapp-btn"
    target="_blank"
    rel="noopener"
@@ -222,7 +215,7 @@
 <footer class="site-footer">
     <div class="container footer-inner">
         <div class="footer-brand">
-            <a href="index.html" class="logo"><span class="logo-dot"></span> SKINUVIA</a>
+            <a href="index.html" class="logo"><img src="images/logo.jpeg" alt="SKINUVIA" /></a>
             <p>Skincare that actually fits your skin.</p>
             <div class="footer-social">
                 <a href="#"><i class="fab fa-instagram"></i></a>
@@ -245,7 +238,7 @@
         </div>
         <div class="footer-col">
             <h4>Company</h4>
-            <a href="#">About us</a>
+            <a href="about.html">About us</a>
             <a href="#">Ingredients</a>
             <a href="admin-login.html" class="footer-admin-link">Staff login</a>
         </div>
@@ -259,7 +252,6 @@
     </div>
 </footer>
 
-<!-- Scripts — loaded ONCE -->
 <script src="js/skinuvia.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
