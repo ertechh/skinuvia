@@ -382,7 +382,7 @@ function initProductDetail() {
     });
 }
 
-// ===== MOBILE NAVIGATION (with debug logging) =====
+// ===== MOBILE NAVIGATION =====
 function initMobileNav() {
     var menuBtn = document.getElementById('mobileMenuBtn');
     var nav = document.getElementById('mainNav');
@@ -413,51 +413,19 @@ function initMobileNav() {
     menuBtn.addEventListener('click', function(e) {
         e.preventDefault();
         e.stopPropagation();
-        console.log('🍔 Hamburger tapped');
         if (nav.classList.contains('open')) closeMenu();
         else openMenu();
     });
 
     if (overlay) {
-        overlay.addEventListener('click', function() {
-            console.log('🎭 Overlay tapped — closing');
-            closeMenu();
-        });
+        overlay.addEventListener('click', closeMenu);
     }
 
-    // ★ Nav links — with full debug logging
+    // ★ Nav links — let the browser navigate natively.
+    // No preventDefault. The drawer just closes in a microtask after the click.
     nav.querySelectorAll('a').forEach(function(link) {
-        link.addEventListener('click', function(e) {
-            var href = this.getAttribute('href');
-
-            console.log('═══════════════════════════════');
-            console.log('🖱️ NAV LINK TAPPED');
-            console.log('  text:', this.textContent.trim());
-            console.log('  href attr:', href);
-            console.log('  resolved href:', this.href);
-            console.log('  defaultPrevented:', e.defaultPrevented);
-            console.log('  target tag:', e.target.tagName);
-
-            if (!href || href === '#' || href.indexOf('javascript:') === 0) {
-                console.log('  ⚠️ Skipping — placeholder link');
-                return;
-            }
-
-            e.preventDefault();
-            console.log('  ✔️ preventDefault called');
-
-            closeMenu();
-            console.log('  ✔️ Menu closed');
-
-            setTimeout(function() {
-                console.log('  🚀 Navigating to:', href);
-                try {
-                    window.location.href = href;
-                    console.log('  ✅ location.href assignment done');
-                } catch (err) {
-                    console.error('  ❌ Navigation threw:', err);
-                }
-            }, 100);
+        link.addEventListener('click', function() {
+            setTimeout(closeMenu, 0);
         });
     });
 
