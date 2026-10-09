@@ -184,7 +184,7 @@ function renderShop() {
     var sortEl = document.getElementById('sortSelect');
 
     var term = (searchEl ? searchEl.value : '').toLowerCase().trim();
-    var maxPrice = priceEl ? parseFloat(priceEl.value) : 100;
+    var maxPrice = priceEl ? parseFloat(priceEl.value) : 50000;
     var catEl = document.querySelector('input[name="category"]:checked');
     var cat = catEl ? catEl.value : 'all';
     var sort = sortEl ? sortEl.value : 'default';
@@ -216,8 +216,8 @@ function resetFilters() {
     var pd = document.getElementById('priceDisplay');
     var sort = document.getElementById('sortSelect');
     if (s) s.value = '';
-    if (p) p.value = '100';
-    if (pd) pd.textContent = formatPrice(100);
+    if (p) p.value = '50000';
+    if (pd) pd.textContent = formatPrice(50000);
     if (sort) sort.value = 'default';
     var all = document.querySelector('input[name="category"][value="all"]');
     if (all) all.checked = true;
@@ -299,7 +299,7 @@ function checkout() {
 
 function checkoutWhatsApp() {
     if (cart.length === 0) { showToast('Your bag is empty'); return; }
-    var WHATSAPP = '447000000000';
+    var WHATSAPP = '2348012345678';
     var message = 'Hi SKINUVIA! I\'d like to place an order:\n\n';
     var total = 0;
     cart.forEach(function(item, index) {
@@ -412,6 +412,7 @@ function initMobileNav() {
         document.body.style.overflow = '';
     }
 
+    // Toggle via hamburger
     menuBtn.addEventListener('click', function(e) {
         e.preventDefault();
         e.stopPropagation();
@@ -419,10 +420,35 @@ function initMobileNav() {
         else openMenu();
     });
 
+    // Close on overlay click
     if (overlay) {
         overlay.addEventListener('click', closeMenu);
     }
 
+    // ★ Nav links — manually navigate to avoid the mobile "animation cancels tap" bug
+    nav.querySelectorAll('a').forEach(function(link) {
+        link.addEventListener('click', function(e) {
+            var href = this.getAttribute('href');
+
+            // Skip placeholder / empty links
+            if (!href || href === '#' || href.indexOf('javascript:') === 0) {
+                return;
+            }
+
+            // Stop the browser from trying (and cancelling) the default navigation
+            e.preventDefault();
+
+            // Close the drawer
+            closeMenu();
+
+            // Navigate after a short delay so the drawer starts its slide-out
+            setTimeout(function() {
+                window.location.href = href;
+            }, 60);
+        });
+    });
+
+    // Escape key closes
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape' && nav.classList.contains('open')) closeMenu();
     });

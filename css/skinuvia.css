@@ -994,7 +994,7 @@ button { font-family: inherit; cursor: pointer; }
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.3s;
-    z-index: 1000;
+    z-index: 999;     /* ← below nav drawer */
 }
 
 .overlay.show { opacity: 1; visibility: visible; }
@@ -1309,7 +1309,7 @@ button { font-family: inherit; cursor: pointer; }
         gap: 0;
         box-shadow: 4px 0 40px rgba(0, 0, 0, 0.12);
         transition: left 0.35s cubic-bezier(0.22, 1, 0.36, 1);
-        z-index: 1000;
+        z-index: 1002;
         overflow-y: auto;
         pointer-events: auto;
     }
@@ -1327,6 +1327,9 @@ button { font-family: inherit; cursor: pointer; }
         text-align: left;
         color: var(--text);
         display: block;
+        position: relative;
+        z-index: 1003;
+        pointer-events: auto;
     }
 
     .main-nav a:last-child {
