@@ -7,7 +7,6 @@ console.log('🌿 SKINUVIA initialising');
 // ===== CURRENCY =====
 var CURRENCY = '₦';
 
-// Format a number as Naira with thousands separators, e.g. ₦24,000.00
 function formatPrice(n) {
     var num = parseFloat(n) || 0;
     return CURRENCY + num.toLocaleString('en-NG', {
@@ -383,14 +382,13 @@ function initProductDetail() {
     });
 }
 
-// ===== MOBILE NAVIGATION =====
+// ===== MOBILE NAVIGATION (with debug logging) =====
 function initMobileNav() {
     var menuBtn = document.getElementById('mobileMenuBtn');
     var nav = document.getElementById('mainNav');
     var overlay = document.getElementById('mobileNavOverlay');
 
     if (!menuBtn || !nav) return;
-
     if (menuBtn.dataset.navBound === 'true') return;
     menuBtn.dataset.navBound = 'true';
 
@@ -412,43 +410,57 @@ function initMobileNav() {
         document.body.style.overflow = '';
     }
 
-    // Toggle via hamburger
     menuBtn.addEventListener('click', function(e) {
         e.preventDefault();
         e.stopPropagation();
+        console.log('🍔 Hamburger tapped');
         if (nav.classList.contains('open')) closeMenu();
         else openMenu();
     });
 
-    // Close on overlay click
     if (overlay) {
-        overlay.addEventListener('click', closeMenu);
+        overlay.addEventListener('click', function() {
+            console.log('🎭 Overlay tapped — closing');
+            closeMenu();
+        });
     }
 
-    // ★ Nav links — manually navigate to avoid the mobile "animation cancels tap" bug
+    // ★ Nav links — with full debug logging
     nav.querySelectorAll('a').forEach(function(link) {
         link.addEventListener('click', function(e) {
             var href = this.getAttribute('href');
 
-            // Skip placeholder / empty links
+            console.log('═══════════════════════════════');
+            console.log('🖱️ NAV LINK TAPPED');
+            console.log('  text:', this.textContent.trim());
+            console.log('  href attr:', href);
+            console.log('  resolved href:', this.href);
+            console.log('  defaultPrevented:', e.defaultPrevented);
+            console.log('  target tag:', e.target.tagName);
+
             if (!href || href === '#' || href.indexOf('javascript:') === 0) {
+                console.log('  ⚠️ Skipping — placeholder link');
                 return;
             }
 
-            // Stop the browser from trying (and cancelling) the default navigation
             e.preventDefault();
+            console.log('  ✔️ preventDefault called');
 
-            // Close the drawer
             closeMenu();
+            console.log('  ✔️ Menu closed');
 
-            // Navigate after a short delay so the drawer starts its slide-out
             setTimeout(function() {
-                window.location.href = href;
-            }, 60);
+                console.log('  🚀 Navigating to:', href);
+                try {
+                    window.location.href = href;
+                    console.log('  ✅ location.href assignment done');
+                } catch (err) {
+                    console.error('  ❌ Navigation threw:', err);
+                }
+            }, 100);
         });
     });
 
-    // Escape key closes
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape' && nav.classList.contains('open')) closeMenu();
     });
